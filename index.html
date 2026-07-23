@@ -1038,9 +1038,10 @@
 
             if (selectedDesa || currentKoordinat || tanggalWaktu) {
                 ctx.textAlign = "right";
-                ctx.font = "36px Times New Roman";
+                // FONT ARIAL STANDAR DINAS
+                ctx.font = "bold 32px Arial, Helvetica, sans-serif";
                 const bottomMargin = 20;
-                const lineHeight = 40;
+                const lineHeight = 38;
                 const rightMargin = 10;
 
                 if (selectedDesa) {
@@ -1050,14 +1051,18 @@
                         "Babinsa Kelurahan Sukasada" :
                         "Babinsa " + displayDesaName;
                     ctx.fillStyle = "white";
-                    ctx.fillText(watermarkText, canvas.width - rightMargin, canvas.height - bottomMargin - (lineHeight *
-                    2));
+                    ctx.shadowColor = "rgba(0,0,0,0.8)";
+                    ctx.shadowBlur = 4;
+                    ctx.fillText(watermarkText, canvas.width - rightMargin, canvas.height - bottomMargin - (lineHeight * 2));
+                    ctx.shadowBlur = 0;
                 }
 
                 if (currentKoordinat) {
                     ctx.fillStyle = "white";
-                    ctx.fillText(currentKoordinat, canvas.width - rightMargin, canvas.height - bottomMargin -
-                    lineHeight);
+                    ctx.shadowColor = "rgba(0,0,0,0.8)";
+                    ctx.shadowBlur = 4;
+                    ctx.fillText(currentKoordinat, canvas.width - rightMargin, canvas.height - bottomMargin - lineHeight);
+                    ctx.shadowBlur = 0;
                 }
 
                 if (tanggalWaktu) {
@@ -1072,7 +1077,10 @@
                         second: "2-digit"
                     });
                     ctx.fillStyle = "white";
+                    ctx.shadowColor = "rgba(0,0,0,0.8)";
+                    ctx.shadowBlur = 4;
                     ctx.fillText(dateText, canvas.width - rightMargin, canvas.height - bottomMargin);
+                    ctx.shadowBlur = 0;
                 }
             }
         }
@@ -1144,6 +1152,7 @@
 
                 const content = await zip.generateAsync({ type: "blob" });
 
+                // ===== DOWNLOAD ZIP =====
                 const a = document.createElement("a");
                 a.href = URL.createObjectURL(content);
                 a.download = zipFileName;
@@ -1151,11 +1160,12 @@
                 a.click();
                 document.body.removeChild(a);
 
+                // ===== UPLOAD TO GOOGLE DRIVE =====
                 const driveUploaded = await uploadToGoogleDrive(content, zipFileName, selectedDesa, date);
                 const desaData = updateDesaCounter(selectedDesa, zipFileName);
 
                 if (driveUploaded) {
-                    showNotification(`✔ Laporan berhasil disimpan (${desaData.count}/${TARGET_LAPORAN} laporan)`,
+                    showNotification(`✔ Laporan berhasil disimpan ke Drive! (${desaData.count}/${TARGET_LAPORAN} laporan)`,
                         "success");
                 } else {
                     showNotification(`⚠ Laporan hanya didownload, gagal simpan ke Drive`, "warning");
