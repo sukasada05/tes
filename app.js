@@ -1,11 +1,10 @@
 // ============================================================
-// DUKOPS COMPLETE - APP.JS (TANPA TELEGRAM)
-// TERINTEGRASI DENGAN GOOGLE APPS SCRIPT BACKEND
-// VERSION: 3.0 - FULL FIX
+// DUKOPS COMPLETE - APP.JS (TANPA TELEGRAM, TANPA HEADER, TANPA ABSEN, TANPA MP3)
+// VERSION: 3.0 - CLEAN
 // ============================================================
 
 // ================= KONFIGURASI BACKEND =================
-const GOOGLE_APPS_SCRIPT_WEBHOOK = "https://script.google.com/macros/s/AKfycbwDcIVTJRBpqpuIOsBmFmvMAak8F5PC5Q5xgxd83anR0y5z4RQ8K9tRi4yjR4fcvXMpng/exec";
+const GOOGLE_APPS_SCRIPT_WEBHOOK = "https://script.google.com/macros/s/AKfycbwJN7fFAjmAgwPiPpsPoASUjDjXFdGwexBvi2ECYNSlWn6Pp1UliQYJ9G-Wz3fA3Adj/exec";
 const TARGET_LAPORAN = 9;
 const KORAMIL = "KORAMIL 1609-05/SUKASADA";
 const VERSION = "3.0";
@@ -27,7 +26,6 @@ let tanggalWaktu = "";
 let submissionCount = 0;
 let submittedDates = [];
 let desaCounter = {};
-let attendanceData = [];
 let deferredPrompt = null;
 let isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
@@ -101,7 +99,7 @@ async function sendToBackend(action, data = {}) {
 }
 
 // ============================================================
-// FUNGSI UPLOAD KE DRIVE (TANPA TELEGRAM)
+// FUNGSI UPLOAD KE DRIVE
 // ============================================================
 async function uploadToGoogleDrive(zipBlob, zipFileName, desaName, date) {
     try {
@@ -138,7 +136,6 @@ async function blobToBase64(blob) {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 DUKOPS APP STARTING...');
     
-    // Load semua data
     loadDesaList();
     resetCanvas();
     setupInstallPrompt();
@@ -166,77 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('✅ DUKOPS APP READY');
 });
-
-// ============================================================
-// FUNGSI MP3 BACKGROUND
-// ============================================================
-(function() {
-    const audio = document.getElementById('backgroundMusic');
-    const volumeSlider = document.getElementById('audioVolumeSlider');
-    let isPlaying = false;
-    let hasUserInteracted = false;
-
-    function playMusic() {
-        if (audio && !isPlaying) {
-            audio.play().then(() => {
-                isPlaying = true;
-                console.log('🎵 Musik background diputar');
-            }).catch(err => console.log('Gagal memutar musik:', err));
-        }
-    }
-
-    if (audio) {
-        if (!audio.src) {
-            audio.src = 'assets/audio/background.mp3';
-        }
-        audio.volume = 0.3;
-        if (volumeSlider) {
-            volumeSlider.value = Math.round(audio.volume * 100);
-        }
-        audio.loop = true;
-        audio.load();
-    }
-
-    if (volumeSlider) {
-        volumeSlider.oninput = function() {
-            if (!audio) return;
-            const value = parseInt(this.value, 10) / 100;
-            audio.volume = value;
-            if (value > 0 && !isPlaying && hasUserInteracted) {
-                playMusic();
-            }
-        };
-    }
-
-    window.triggerPlayMusic = function() {
-        if (!audio) return;
-        if (!hasUserInteracted) {
-            hasUserInteracted = true;
-            playMusic();
-        } else if (!isPlaying) {
-            playMusic();
-        }
-    };
-
-    function firstInteraction() {
-        if (!hasUserInteracted) {
-            hasUserInteracted = true;
-            playMusic();
-            document.removeEventListener('click', firstInteraction);
-            document.removeEventListener('touchstart', firstInteraction);
-            document.removeEventListener('scroll', firstInteraction);
-        }
-    }
-    document.addEventListener('click', firstInteraction);
-    document.addEventListener('touchstart', firstInteraction);
-    document.addEventListener('scroll', firstInteraction);
-
-    setTimeout(() => {
-        if (!hasUserInteracted) {
-            playMusic();
-        }
-    }, 3000);
-})();
 
 // ============================================================
 // FUNGSI PWA INSTALL
@@ -338,34 +264,6 @@ async function loadDesaList() {
     }
 }
 
-function updateDesaProfile(desaName) {
-    const imgElement = document.getElementById('desaProfileImgHeader');
-    const nameElement = document.getElementById('desaProfileNameHeader');
-
-    if (!desaName || desaName === "") {
-        if (imgElement) imgElement.src = 'icons/favicon-96x96.png';
-        if (nameElement) { nameElement.textContent = ""; nameElement.style.display = 'none'; }
-        return;
-    }
-
-    const desaInfo = normalizeDesaName(desaName);
-    if (imgElement) {
-        const imageUrl = `profile/${desaInfo.normalized}.png`;
-        imgElement.src = imageUrl;
-        imgElement.onerror = function() {
-            this.src = 'icons/favicon-96x96.png';
-        };
-    }
-    if (nameElement) {
-        nameElement.textContent = desaInfo.cleanName;
-        nameElement.style.display = 'block';
-    }
-}
-
-// ============================================================
-// LOAD KOORDINAT - UTAMAKAN GITHUB, FALLBACK LOKAL
-// ============================================================
-
 async function loadSelectedDesa() {
     const select = document.getElementById('selectDesa');
     const selectedOption = select.options[select.selectedIndex];
@@ -375,10 +273,6 @@ async function loadSelectedDesa() {
         resetForm();
         return;
     }
-
-    updateDesaProfile(selectedDesa);
-    updateAttendanceButtonState();
-    updateAttendanceSelectedDesaLabel();
 
     const desaInfo = normalizeDesaName(selectedDesa);
     const previewDesa = document.getElementById('previewDesa');
@@ -390,17 +284,12 @@ async function loadSelectedDesa() {
         fotoLabel.innerHTML = `<i class="fas fa-camera"></i> Foto Kegiatan: ${desaInfo.cleanName}`;
     }
 
-    if (typeof window.triggerPlayMusic === 'function') {
-        window.triggerPlayMusic();
-    }
-
     // LOAD KOORDINAT
     const loading = document.getElementById('loadingKoordinat');
     loading.style.display = 'block';
     document.getElementById('previewKordinat').textContent = "Memuat koordinat...";
 
     try {
-        // 🔥 1. COBA DARI GITHUB DULU
         const githubUrl = `${GITHUB_URLS.COORDINATES}/${selectedDesa}.json`;
         console.log('📡 Mencoba dari GitHub:', githubUrl);
         
@@ -421,7 +310,6 @@ async function loadSelectedDesa() {
             }
         }
         
-        // 🔥 2. JIKA GITHUB GAGAL, COBA DARI LOKAL
         console.log('📡 GitHub gagal/offline, mencoba dari lokal...');
         const lokalUrl = `data/coordinates/${selectedDesa}.json`;
         const lokalResponse = await fetch(lokalUrl + '?t=' + Date.now());
@@ -441,17 +329,14 @@ async function loadSelectedDesa() {
             }
         }
 
-        // 🔥 3. JIKA SEMUA GAGAL, KOORDINAT DEFAULT
-        console.warn('⚠️ Koordinat tidak ditemukan di GitHub maupun Lokal, pakai default');
+        console.warn('⚠️ Koordinat tidak ditemukan, pakai default');
         kordinatList = ["-8.123,115.123,150"];
         pickRandomKoordinat();
-        document.getElementById('previewKordinat').textContent = "⚠️ Koordinat default (file tidak ditemukan)";
+        document.getElementById('previewKordinat').textContent = "⚠️ Koordinat default";
         showNotification("⚠️ Koordinat tidak tersedia, pakai default", "warning");
 
     } catch (error) {
         console.error('❌ Error loading coordinates:', error);
-        
-        // 🔥 FALLBACK: KOORDINAT DEFAULT
         kordinatList = ["-8.123,115.123,150"];
         pickRandomKoordinat();
         document.getElementById('previewKordinat').textContent = "⚠️ Koordinat default (error)";
@@ -622,7 +507,6 @@ function checkInputCompletion() {
 
     const submitBtn = document.getElementById("submitBtn");
     if (submitBtn) submitBtn.disabled = !isComplete;
-    updateAttendanceButtonState();
 }
 
 function autoResizeNarasi(target) {
@@ -672,7 +556,6 @@ function setupAITemplateButton() {
         }
     });
 
-    // Tutup modal
     const closeModalBtn = document.getElementById('closeModalBtn');
     if (closeModalBtn) {
         closeModalBtn.addEventListener('click', function() {
@@ -684,7 +567,6 @@ function setupAITemplateButton() {
         });
     }
 
-    // Klik di luar modal
     window.addEventListener('click', function(e) {
         const modal = document.getElementById('templateModal');
         if (modal && e.target === modal) {
@@ -847,7 +729,7 @@ async function getCoordinatesForNarasi(desaName) {
 }
 
 // ============================================================
-// FUNGSI SUBMIT LAPORAN (TANPA TELEGRAM)
+// FUNGSI SUBMIT LAPORAN
 // ============================================================
 function validateSubmission() {
     if (!selectedDesa) { showNotification("Masukkan nama desa terlebih dahulu", "warning"); return false; }
@@ -914,16 +796,11 @@ async function processSubmission() {
         a.click();
         document.body.removeChild(a);
 
-        // 2. Upload ke Drive (via backend) - TANPA TELEGRAM
+        // 2. Upload ke Drive (via backend)
         const driveUploaded = await uploadToGoogleDrive(content, zipFileName, selectedDesa, date);
 
         // 3. Update counter
         const desaData = updateDesaCounter(selectedDesa, zipFileName);
-
-        // 4. Refresh absensi
-        if (document.getElementById('attendancePanel').style.display === 'block') {
-            setTimeout(() => loadAttendanceData(), 2000);
-        }
 
         if (driveUploaded) {
             showNotification(`✔ Laporan berhasil disimpan (${desaData.count}/${TARGET_LAPORAN} laporan)`, "success");
@@ -1018,7 +895,6 @@ function resetForm() {
     document.getElementById('gambar').value = "";
     document.getElementById('tanggalWaktu').value = "";
     document.getElementById('previewGambar').textContent = "";
-    updateDesaProfile("");
     checkInputCompletion();
     updatePreview();
     resetCanvas();
@@ -1073,285 +949,23 @@ function showThankYouPopup(desaName, count) {
 }
 
 // ============================================================
-// FUNGSI ATTENDANCE (ABSENSI)
-// ============================================================
-function updateAttendanceButtonState() {
-    const button = document.getElementById('showAttendanceBtn');
-    if (button) button.disabled = !selectedDesa;
-}
-
-function updateAttendanceSelectedDesaLabel() {
-    const label = document.getElementById('attendanceSelectedDesaName');
-    if (label) label.textContent = selectedDesa ? normalizeDesaName(selectedDesa).cleanName : 'Silahkan Pilih Desa';
-}
-
-function showAttendance() {
-    const panel = document.getElementById('attendancePanel');
-    const button = document.getElementById('showAttendanceBtn');
-    if (panel && button) {
-        panel.style.display = 'block';
-        button.style.display = 'none';
-        const now = new Date();
-        document.getElementById('attendanceMonthFilter').value = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-        updateAttendanceSelectedDesaLabel();
-        loadAttendanceData();
-    }
-}
-
-function hideAttendance() {
-    const panel = document.getElementById('attendancePanel');
-    const button = document.getElementById('showAttendanceBtn');
-    if (panel && button) {
-        panel.style.display = 'none';
-        button.style.display = 'block';
-    }
-}
-
-async function loadAttendanceData() {
-    const loading = document.getElementById('attendanceLoading');
-    const list = document.getElementById('attendanceList');
-    const summary = document.getElementById('attendanceSummary');
-
-    if (!loading || !list) return;
-    loading.style.display = 'block';
-    list.innerHTML = '';
-    if (summary) summary.style.display = 'none';
-
-    try {
-        const result = await sendToBackend('listFiles', {
-            desaFilter: selectedDesa ? normalizeDesaName(selectedDesa).cleanName : '',
-            monthFilter: document.getElementById('attendanceMonthFilter').value,
-            readZips: 'true'
-        });
-
-        if (result.success) {
-            attendanceData = result.files || [];
-            const selectedMonth = document.getElementById('attendanceMonthFilter').value;
-            if (selectedMonth) {
-                const [year, month] = selectedMonth.split('-');
-                attendanceData = attendanceData.filter(file => {
-                    const fileMonth = file.month || extractMonthYearFromFileName(file.name);
-                    return fileMonth === `${year}-${month}`;
-                });
-            }
-            displayAttendanceList(attendanceData);
-            displayAttendanceSummary(attendanceData);
-        } else {
-            loadAttendanceFromFallback();
-        }
-    } catch (error) {
-        console.error('Error loading attendance:', error);
-        loadAttendanceFromFallback();
-    } finally {
-        loading.style.display = 'none';
-    }
-}
-
-function extractMonthYearFromFileName(filename) {
-    const match = filename.match(/(\d{1,2})\s+(\d{4})\.zip$/);
-    if (match) {
-        return `${match[2]}-${match[1].padStart(2, '0')}`;
-    }
-    return '';
-}
-
-function extractDesaFromFileName(filename) {
-    const cleanName = filename.replace(/_/g, ' ').replace(/\.zip$/, '').replace(/\s+\d{1,2}\s+\d{4}$/, '').trim();
-    const selectDesa = document.getElementById('selectDesa');
-    if (!selectDesa) return cleanName;
-
-    for (let i = 1; i < selectDesa.options.length; i++) {
-        const option = selectDesa.options[i];
-        const desaInfo = normalizeDesaName(option.getAttribute('data-raw-name') || option.text);
-        if (cleanName.toLowerCase().includes(desaInfo.cleanName.toLowerCase()) ||
-            desaInfo.cleanName.toLowerCase().includes(cleanName.toLowerCase())) {
-            return desaInfo.cleanName;
-        }
-    }
-    return cleanName;
-}
-
-function formatFileSize(bytes) {
-    if (!bytes || bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-}
-
-function loadAttendanceFromFallback() {
-    const list = document.getElementById('attendanceList');
-    const summary = document.getElementById('attendanceSummary');
-    if (!list) return;
-
-    const desaData = [];
-    for (const [desaName, data] of Object.entries(desaCounter)) {
-        if (data.files && data.files.length > 0) {
-            data.files.forEach(fileName => {
-                desaData.push({ name: fileName, desa: desaName, count: data.count, month: data.month });
-            });
-        }
-    }
-
-    if (desaData.length > 0) {
-        attendanceData = desaData.map(item => ({
-            name: item.name,
-            desa: item.desa,
-            size: 0,
-            createdTime: new Date().toISOString(),
-            webViewLink: '#',
-            zipContents: 'Narasi.txt, Dukops.png',
-            month: extractMonthYearFromFileName(item.name)
-        }));
-        displayAttendanceList(attendanceData);
-        displayAttendanceSummary(attendanceData);
-    } else {
-        list.innerHTML = `<div style="text-align:center; color:#a5a5a5; padding:20px;">
-            <i class="fas fa-folder-open"></i><br>Tidak ada data laporan<br><small>Silakan kirim laporan terlebih dahulu</small>
-        </div>`;
-        if (summary) summary.style.display = 'none';
-    }
-}
-
-function displayAttendanceList(files) {
-    const list = document.getElementById('attendanceList');
-    if (!list) return;
-
-    if (!files || files.length === 0) {
-        list.innerHTML = `<div style="text-align:center; color:#a5a5a5; padding:20px;">
-            <i class="fas fa-folder-open"></i><br>Tidak ada data laporan<br><small>Silakan kirim laporan terlebih dahulu</small>
-        </div>`;
-        return;
-    }
-
-    const groupedByMonthYear = {};
-    files.forEach(file => {
-        const monthYear = file.month || extractMonthYearFromFileName(file.name);
-        if (!groupedByMonthYear[monthYear]) {
-            groupedByMonthYear[monthYear] = { month: monthYear, files: [], desas: new Set() };
-        }
-        groupedByMonthYear[monthYear].files.push(file);
-        groupedByMonthYear[monthYear].desas.add(file.desa || extractDesaFromFileName(file.name));
-    });
-
-    const sortedMonths = Object.keys(groupedByMonthYear).sort((a, b) => new Date(b) - new Date(a));
-    let html = '';
-
-    sortedMonths.forEach(monthYear => {
-        const group = groupedByMonthYear[monthYear];
-        const [year, month] = monthYear.split('-');
-        const monthNames = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-        const monthName = monthNames[parseInt(month) - 1];
-
-        html += `<div class="desa-card" style="margin-bottom:20px;">
-            <div class="desa-header" style="background:#cc5500;">
-                <div class="desa-name"><i class="fas fa-folder"></i> ${monthName} ${year}</div>
-                <div class="desa-count">${group.files.length} laporan | ${group.desas.size} desa</div>
-            </div>
-            <div class="desa-files">`;
-
-        const filesByDesa = {};
-        group.files.forEach(file => {
-            const desaName = file.desa || extractDesaFromFileName(file.name);
-            if (!filesByDesa[desaName]) filesByDesa[desaName] = [];
-            filesByDesa[desaName].push(file);
-        });
-
-        Object.entries(filesByDesa).forEach(([desaName, desaFiles]) => {
-            const isComplete = desaFiles.length >= TARGET_LAPORAN;
-            html += `<div class="desa-card" style="margin:10px 0; border-left:4px solid ${isComplete ? '#4CAF50' : '#FF9800'};">
-                <div class="desa-header" style="padding:8px 12px;">
-                    <div class="desa-name" style="font-size:14px;">${desaName}</div>
-                    <div class="desa-count" style="font-size:12px; color:${isComplete ? '#4CAF50' : '#FF9800'}">${desaFiles.length}/9 laporan</div>
-                </div>
-                <div class="desa-files" style="padding:5px 12px;">`;
-
-            desaFiles.sort((a, b) => new Date(b.createdTime) - new Date(a.createdTime));
-            desaFiles.forEach((file, index) => {
-                const date = new Date(file.createdTime);
-                const dateStr = date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
-                const displayIndex = desaFiles.length - index;
-                html += `<div class="file-item" style="padding:6px 0;">
-                    <div class="file-info">
-                        <div style="flex:1;">
-                            <div class="file-name" style="font-size:13px;">${displayIndex}. ${file.name}</div>
-                            <div class="file-meta">** ${dateStr} ** ${file.size ? formatFileSize(file.size) : 'Ukuran tidak tersedia'}</div>
-                            ${file.zipContents ? `<div class="file-zip">** Isi ZIP: ${file.zipContents}</div>` : ''}
-                        </div>
-                    </div>
-                </div>`;
-            });
-
-            html += `</div></div>`;
-        });
-
-        html += `</div></div>`;
-    });
-
-    list.innerHTML = html;
-}
-
-function displayAttendanceSummary(files) {
-    const summary = document.getElementById('attendanceSummary');
-    const totalReports = document.getElementById('totalReports');
-    const totalDesa = document.getElementById('totalDesa');
-    const targetStatus = document.getElementById('targetStatus');
-
-    if (!summary || !files || files.length === 0) {
-        if (summary) summary.style.display = 'none';
-        return;
-    }
-
-    summary.style.display = 'block';
-    if (totalReports) totalReports.textContent = files.length;
-
-    const uniqueDesas = new Set();
-    files.forEach(file => {
-        uniqueDesas.add(file.desa || extractDesaFromFileName(file.name));
-    });
-    if (totalDesa) totalDesa.textContent = uniqueDesas.size;
-
-    const desaCounts = {};
-    files.forEach(file => {
-        const desaName = file.desa || extractDesaFromFileName(file.name);
-        desaCounts[desaName] = (desaCounts[desaName] || 0) + 1;
-    });
-
-    let totalAchieved = 0;
-    Object.values(desaCounts).forEach(count => {
-        totalAchieved += Math.min(count, TARGET_LAPORAN);
-    });
-    const totalPossible = uniqueDesas.size * TARGET_LAPORAN;
-    const achievementPercent = totalPossible > 0 ? (totalAchieved / totalPossible * 100) : 0;
-
-    if (targetStatus) {
-        targetStatus.textContent = `${achievementPercent.toFixed(1)}%`;
-        targetStatus.style.color = achievementPercent >= 100 ? '#4CAF50' : achievementPercent >= 70 ? '#FF9800' : '#f44336';
-    }
-}
-
-// ============================================================
 // FUNGSI NAVIGASI
 // ============================================================
 function showDukops() {
     document.getElementById('dukopsContent').style.display = 'block';
     document.getElementById('jadwalPiketContainerBaru').style.display = 'none';
-    document.getElementById('absenContent').style.display = 'none';
     document.getElementById('hanpanganContent').style.display = 'none';
     document.getElementById('btnDukops').classList.add('active');
     document.getElementById('btnJadwal').classList.remove('active');
-    document.getElementById('btnAbsen').classList.remove('active');
     document.getElementById('btnHanpangan').classList.remove('active');
 }
 
 function showJadwalPiketBaru() {
     document.getElementById('dukopsContent').style.display = 'none';
     document.getElementById('jadwalPiketContainerBaru').style.display = 'block';
-    document.getElementById('absenContent').style.display = 'none';
     document.getElementById('hanpanganContent').style.display = 'none';
     document.getElementById('btnDukops').classList.remove('active');
     document.getElementById('btnJadwal').classList.add('active');
-    document.getElementById('btnAbsen').classList.remove('active');
     document.getElementById('btnHanpangan').classList.remove('active');
 
     if (!window._jadwalInitialized) {
@@ -1360,27 +974,13 @@ function showJadwalPiketBaru() {
     }
 }
 
-function showAbsenTab() {
-    document.getElementById('dukopsContent').style.display = 'none';
-    document.getElementById('jadwalPiketContainerBaru').style.display = 'none';
-    document.getElementById('absenContent').style.display = 'block';
-    document.getElementById('hanpanganContent').style.display = 'none';
-    document.getElementById('btnDukops').classList.remove('active');
-    document.getElementById('btnJadwal').classList.remove('active');
-    document.getElementById('btnAbsen').classList.add('active');
-    document.getElementById('btnHanpangan').classList.remove('active');
-}
-
 function showHanpangan() {
     document.getElementById('dukopsContent').style.display = 'none';
     document.getElementById('jadwalPiketContainerBaru').style.display = 'none';
-    document.getElementById('absenContent').style.display = 'none';
     document.getElementById('hanpanganContent').style.display = 'block';
     document.getElementById('btnDukops').classList.remove('active');
     document.getElementById('btnJadwal').classList.remove('active');
-    document.getElementById('btnAbsen').classList.remove('active');
     document.getElementById('btnHanpangan').classList.add('active');
-    if (typeof window.triggerPlayMusic === 'function') window.triggerPlayMusic();
 }
 
 // ============================================================
@@ -1465,17 +1065,11 @@ function loadHanpanganData() {
                 let index = (epochDays + offset) % lines.length;
                 if (index < 0) index += lines.length;
                 JadwalData2.currentHanpangan = lines[index];
-                updateRunningText();
                 return true;
             }
         }
         return false;
     });
-}
-
-function updateRunningText() {
-    const el = document.getElementById('runningTextJadwalBaru');
-    if (el) el.textContent = '🌾 JADWAL HANPANGAN HARI INI: ' + JadwalData2.currentHanpangan + ' 🌾';
 }
 
 function formatTanggal(date) {
@@ -1713,66 +1307,8 @@ async function initJadwalBaru() {
 }
 
 // ============================================================
-// FUNGSI TAB ABSEN (HTML2CANVAS)
-// ============================================================
-window.shareAsPNGAbsen = async function() {
-    var btn = document.getElementById('downloadAbsenBtn');
-    if (btn) {
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> MEMBUAT PNG...';
-    }
-
-    var resultContainer = document.getElementById('absenResultContainer');
-    if (!resultContainer || !resultContainer.innerHTML || resultContainer.innerHTML.includes('Pilih tahun')) {
-        alert('⚠️ Silakan pilih Tahun dan Bulan terlebih dahulu!');
-        if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-download"></i> DOWNLOAD ABSEN PNG'; }
-        return;
-    }
-
-    try {
-        var element = document.querySelector('.absen-card');
-        if (!element) {
-            var cards = document.querySelectorAll('.absen-card');
-            if (cards.length > 0) element = cards[0];
-        }
-
-        if (!element) {
-            alert('⚠️ Tidak ada data absen untuk di-download!');
-            if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-download"></i> DOWNLOAD ABSEN PNG'; }
-            return;
-        }
-
-        var canvas = await html2canvas(element, {
-            scale: 2,
-            backgroundColor: '#ffffff',
-            useCORS: true,
-            logging: false,
-            allowTaint: true
-        });
-
-        var link = document.createElement('a');
-        var fileName = 'Absensi_DUKOPS_' + new Date().toISOString().split('T')[0] + '.png';
-        link.download = fileName;
-        link.href = canvas.toDataURL('image/png');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        console.log('✅ Download PNG berhasil:', fileName);
-    } catch (e) {
-        console.error('❌ Gagal screenshot:', e);
-        alert('❌ Gagal membuat gambar: ' + e.message);
-    }
-
-    if (btn) {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-download"></i> DOWNLOAD ABSEN PNG';
-    }
-};
-
-// ============================================================
 // INITIALIZE
 // ============================================================
-console.log('🚀 DUKOPS Complete v3.0 (Tanpa Telegram) loaded');
+console.log('🚀 DUKOPS Complete v3.0 (Clean - No Header, No Absen, No MP3) loaded');
 console.log('📁 Folder ID:', '1fZBe0ICQEmcIx2dIpsiOCZIMmkbZIkVQ');
 console.log('🔗 Backend URL:', GOOGLE_APPS_SCRIPT_WEBHOOK);
