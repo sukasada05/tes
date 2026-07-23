@@ -2,500 +2,1882 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="DUKOPS">
-    <title>SISTEM PELAPORAN DUKOPS BABINSA dan JADWAL PIKET KORAMIL</title>
-    <meta name="theme-color" content="#0a1a3a">
-
-    <link rel="icon" type="image/x-icon" href="icons/favicon.ico" />
-    <link rel="icon" type="image/png" href="icons/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg" />
-    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
-    <link rel="manifest" href="site.webmanifest" />
-
-    <script src="https://cdn.polyfill.io/v3/polyfill.min.js?features=default,es6,Promise,fetch,Array.prototype.includes"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-
-    <!-- ===== CSS MODULAR ===== -->
-    <link rel="stylesheet" href="css/main.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DUKOPS - SISTEM PELAPORAN</title>
     <style>
-        /* ============================================================
-           ROOT VARIABLES
-           ============================================================ */
-        :root {
-            --sys-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #008080;
+            color: #000;
+            padding: 8px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: #c0c0c0;
+            padding: 8px;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            box-shadow: inset 1px 1px 0 #dfdfdf;
         }
 
-        /* ============================================================
-           APP CONTAINER - LANGSUNG TAMPIL
-           ============================================================ */
-        #appContainer {
-            display: block !important;
-            opacity: 1 !important;
+        /* ========== TITLE BAR ========== */
+        .window-title {
+            background: #000080;
+            color: #fff;
+            padding: 4px 8px;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            cursor: default;
+            letter-spacing: 0.5px;
+        }
+        .window-title span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .window-title .btn-close {
+            background: #c0c0c0;
+            color: #000;
+            border: 1px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            padding: 0 6px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 16px;
+        }
+        .window-title .btn-close:active {
+            border-color: #808080 #ffffff #ffffff #808080;
         }
 
-        #splashScreen {
-            display: none !important;
+        /* ========== NAVIGASI ========== */
+        .nav-buttons {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            background: #c0c0c0;
+            padding: 4px;
+            border: 1px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+        }
+        .nav-btn {
+            flex: 1;
+            padding: 6px 4px;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            background: #c0c0c0;
+            color: #000;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+            text-align: center;
+            min-width: 50px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .nav-btn:active {
+            border-color: #808080 #ffffff #ffffff #808080;
+        }
+        .nav-btn.active {
+            border-color: #808080 #ffffff #ffffff #808080;
+            background: #d0d0d0;
         }
 
-        /* ============================================================
-           SUPABASE INDICATOR - BULAT KECIL POJOK KANAN ATAS
-           ============================================================ */
+        /* ========== FORM ELEMEN ========== */
+        .field-group {
+            margin-bottom: 6px;
+            padding: 4px;
+            border: 1px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            background: #d0d0d0;
+        }
+        .field-group label {
+            display: block;
+            font-weight: bold;
+            font-size: 12px;
+            color: #000;
+            margin-bottom: 2px;
+        }
+        select,
+        input[type="file"],
+        input[type="datetime-local"],
+        textarea {
+            width: 100%;
+            padding: 4px 6px;
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            background: #ffffff;
+            color: #000;
+            font-size: 13px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        select:focus,
+        input:focus,
+        textarea:focus {
+            border-color: #000080 #ffffff #ffffff #000080;
+            outline: none;
+        }
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .previewBox {
+            background: #ffffff;
+            padding: 4px 6px;
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            margin-top: 2px;
+            min-height: 28px;
+            font-size: 12px;
+            color: #000;
+            word-break: break-all;
+        }
+
+        /* ========== CANVAS ========== */
+        canvas {
+            width: 100%;
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            margin: 6px 0;
+            background: #000;
+            display: block;
+        }
+
+        /* ========== TOMBOL ========== */
+        .action-buttons {
+            display: flex;
+            gap: 6px;
+            margin: 6px 0;
+            flex-wrap: wrap;
+        }
+        .action-buttons button {
+            flex: 1;
+            padding: 6px 12px;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            background: #c0c0c0;
+            color: #000;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-width: 70px;
+        }
+        .action-buttons button:active {
+            border-color: #808080 #ffffff #ffffff #808080;
+        }
+        .action-buttons button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        #submitBtn {
+            background: #c0c0c0;
+        }
+        #resetBtn {
+            background: #c0c0c0;
+        }
+
+        /* ========== JADWAL PIKET ========== */
+        .jadwal-section {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            padding: 6px;
+            margin-bottom: 6px;
+        }
+        .section-content .row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin: 4px 0;
+        }
+        .section-content .col {
+            width: 100%;
+        }
+        .section-content select {
+            font-size: 12px;
+            padding: 3px 4px;
+            width: 100%;
+        }
+        .section-title {
+            font-weight: bold;
+            font-size: 12px;
+            color: #000;
+            margin: 4px 0;
+            background: #d0d0d0;
+            padding: 2px 4px;
+            border: 1px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        .section-title .date-label {
+            font-weight: normal;
+            font-size: 11px;
+            color: #000;
+            background: #c0c0c0;
+            padding: 0 6px;
+            border: 1px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+        }
+        .section-title .date-label-hari-ini {
+            background: #e8f0e8;
+            border-color: #008000 #4a7a4a #4a7a4a #008000;
+            color: #004400;
+        }
+        .section-title .date-label-besok {
+            background: #f0e8e0;
+            border-color: #8a6a2a #6a4a1a #6a4a1a #8a6a2a;
+            color: #664400;
+        }
+        .section-divider {
+            border-top: 1px dashed #808080;
+            margin: 6px 0;
+        }
+        .group-box {
+            padding: 4px;
+            margin-bottom: 4px;
+        }
+        .group-box-hari-ini {
+            background: #e8f0e8;
+            border: 1px solid #008000;
+        }
+        .group-box-besok {
+            background: #f0e8e0;
+            border: 1px solid #8a6a2a;
+        }
+        .group-box label {
+            font-weight: bold;
+            font-size: 11px;
+            display: block;
+            margin-bottom: 2px;
+        }
+        .group-box-hari-ini label {
+            color: #004400;
+        }
+        .group-box-besok label {
+            color: #664400;
+        }
+        .whatsapp-btn {
+            width: 100%;
+            padding: 6px;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            background: #c0c0c0;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 4px 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 13px;
+        }
+        .whatsapp-btn:active {
+            border-color: #808080 #ffffff #ffffff #808080;
+        }
+
+        /* ========== HANPANGAN IFRAME ========== */
+        #hanpanganContent iframe {
+            width: 100%;
+            height: 450px;
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            background: #ffffff;
+        }
+        @media (max-width: 480px) {
+            #hanpanganContent iframe {
+                height: 350px;
+            }
+        }
+
+        /* ========== SUPABASE INDICATOR ========== */
         .supabase-indicator {
             position: fixed;
-            top: 14px;
-            right: 14px;
-            width: 14px;
-            height: 14px;
-            z-index: 9999;
+            top: 6px;
+            right: 6px;
+            z-index: 999;
+            width: 12px;
+            height: 12px;
             cursor: default;
-            transition: all 0.3s ease;
         }
-
         .indicator-dot {
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            transition: all 0.3s ease;
+            border: 1px solid #000;
+            transition: background 0.3s;
         }
-
         .indicator-online .indicator-dot {
-            background: #4caf50;
-            box-shadow: 0 0 12px rgba(76, 175, 80, 0.6);
-            animation: pulse-online 2s ease-in-out infinite;
+            background: #00aa00;
         }
-
         .indicator-offline .indicator-dot {
-            background: #f44336;
-            box-shadow: 0 0 12px rgba(244, 67, 54, 0.6);
-            animation: pulse-offline 1s ease-in-out infinite;
+            background: #ff0000;
         }
-
         .indicator-checking .indicator-dot {
-            background: #ffc107;
-            box-shadow: 0 0 12px rgba(255, 193, 7, 0.6);
-            animation: pulse-checking 0.8s ease-in-out infinite;
+            background: #ffcc00;
         }
-
-        @keyframes pulse-online {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.8; }
-        }
-
-        @keyframes pulse-offline {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(0.85); opacity: 0.5; }
-        }
-
-        @keyframes pulse-checking {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.5; }
-        }
-
-        .supabase-indicator:hover .indicator-tooltip {
-            opacity: 1;
-            transform: translateX(0);
-            pointer-events: auto;
-        }
-
         .indicator-tooltip {
-            position: absolute;
-            top: 50%;
-            right: 22px;
-            transform: translateX(-8px) translateY(-50%);
-            background: rgba(0, 0, 0, 0.85);
-            color: #fff;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 10px;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .indicator-tooltip::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: -6px;
-            transform: translateY(-50%);
-            border-left: 6px solid rgba(0, 0, 0, 0.85);
-            border-top: 6px solid transparent;
-            border-bottom: 6px solid transparent;
-        }
-
-        @media (max-width: 480px) {
-            .supabase-indicator {
-                width: 12px;
-                height: 12px;
-                top: 10px;
-                right: 10px;
-            }
-            .indicator-tooltip {
-                font-size: 9px;
-                padding: 3px 8px;
-                right: 18px;
-            }
-        }
-
-        /* ============================================================
-           STYLE LAINNYA
-           ============================================================ */
-        .tanggal-info {
-            font-size: 0.7em;
-            color: #ffd700;
-            text-align: center;
-            padding: 5px;
-            background: rgba(255,215,0,0.05);
-            border-radius: 6px;
-            margin-bottom: 10px;
-        }
-
-        .preview-status {
-            font-size: 0.6em;
-            color: #4caf50;
-            text-align: right;
-            margin-top: 3px;
-        }
-
-        .data-info {
-            font-size: 0.65em;
-            color: #888;
-            text-align: center;
-            margin-top: 5px;
-        }
-
-        .loading {
             display: none;
-            text-align: center;
-            padding: 20px;
-            color: #ffd700;
         }
 
-        .loading i {
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .toast {
+        /* ========== NOTIFIKASI ========== */
+        .notification {
             position: fixed;
-            bottom: 30px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            padding: 14px 28px;
-            border-radius: 12px;
-            color: white;
+            padding: 8px 20px;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            background: #ffffcc;
+            color: #000;
             font-weight: bold;
-            font-size: 0.9em;
-            z-index: 9999;
-            opacity: 0;
-            transition: opacity 0.3s;
+            z-index: 999;
             max-width: 90%;
             text-align: center;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            font-size: 13px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .notification.success {
+            background: #ccffcc;
+        }
+        .notification.error {
+            background: #ffcccc;
+        }
+        .notification.warning {
+            background: #ffffcc;
         }
 
-        .toast.show { opacity: 1; }
-        .toast-success { background: rgba(46, 125, 50, 0.95); }
-        .toast-error { background: rgba(198, 40, 40, 0.95); }
-        .toast-info { background: rgba(30, 136, 229, 0.95); }
-        .toast-warning { background: rgba(237, 108, 2, 0.95); }
-
-        /* ============================================================
-           TAB HANPANGAN (IFRAME)
-           ============================================================ */
-        #hanpanganContent {
-            display: none;
-            width: 100%;
-            height: 600px;
-            border: none;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-top: 15px;
-            background: #0a1a0a;
-        }
-        #hanpanganContent iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 12px;
-        }
-
-        @media (max-width: 768px) { #hanpanganContent { height: 500px; } }
-        @media (max-width: 480px) { #hanpanganContent { height: 400px; } }
-
-        /* ============================================================
-           MODAL AI TEMPLATE
-           ============================================================ */
+        /* ========== MODAL AI ========== */
         .modal-ai {
             display: none;
             position: fixed;
-            z-index: 99999;
+            z-index: 9999;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.6);
             align-items: center;
             justify-content: center;
         }
-        .modal-ai.show { display: flex; }
+        .modal-ai.show {
+            display: flex;
+        }
         .modal-ai-content {
-            background: #1a2a1a;
-            border-radius: 16px;
-            max-width: 600px;
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            max-width: 480px;
             width: 95%;
             max-height: 80vh;
             overflow: hidden;
-            border: 1px solid rgba(255,215,0,0.1);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            padding: 10px;
         }
         .modal-ai-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 20px;
-            border-bottom: 1px solid rgba(255,215,0,0.08);
-            background: #0a1a0a;
+            border-bottom: 1px solid #808080;
+            padding-bottom: 6px;
+            margin-bottom: 8px;
         }
         .modal-ai-header h3 {
+            font-size: 14px;
             margin: 0;
-            color: #FFD700;
-            font-size: 18px;
+            color: #000;
         }
-        .modal-ai-header h3 i { margin-right: 8px; }
         .modal-close {
-            background: none;
-            border: none;
-            color: #889988;
-            font-size: 28px;
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            color: #000;
+            font-size: 16px;
             cursor: pointer;
             padding: 0 8px;
+            line-height: 20px;
         }
-        .modal-close:hover { color: #ff6666; }
-        .modal-ai-tabs { padding: 12px 16px; background: #0f1f0f; border-bottom: 1px solid rgba(255,215,0,0.05); }
-        .modal-ai-body { padding: 16px; overflow-y: auto; max-height: 50vh; }
+        .modal-close:active {
+            border-color: #808080 #ffffff #ffffff #808080;
+        }
+        .modal-ai-tabs {
+            margin-bottom: 6px;
+        }
+        .modal-ai-tabs select {
+            width: 100%;
+            padding: 4px 6px;
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            background: #ffffff;
+            color: #000;
+        }
+        .modal-ai-body {
+            max-height: 50vh;
+            overflow-y: auto;
+        }
         .modal-template-item {
-            background: #0f1f0f;
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 8px;
+            background: #ffffff;
+            padding: 6px 8px;
+            border: 1px solid #808080;
+            margin-bottom: 4px;
             cursor: pointer;
-            border: 1px solid rgba(255,215,0,0.05);
-            transition: all 0.2s;
         }
         .modal-template-item:hover {
-            background: #1a2f1a;
-            border-color: rgba(255,215,0,0.15);
-            transform: translateX(4px);
+            background: #d0d0d0;
         }
         .modal-template-text {
-            color: #cce0cc;
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 12px;
+            color: #000;
         }
-        .loading-templates { padding: 40px; text-align: center; color: #889988; }
+        .loading-templates {
+            color: #000;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* ========== UTILITY ========== */
+        .hidden {
+            display: none !important;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-muted {
+            color: #444;
+            font-size: 11px;
+        }
+        .mt-1 {
+            margin-top: 4px;
+        }
+        .mb-1 {
+            margin-bottom: 4px;
+        }
+
+        /* ========== COUNTER ========== */
+        .counter-value {
+            display: inline-block;
+            padding: 0 8px;
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            background: #ffffff;
+            color: #000;
+            font-weight: bold;
+            font-size: 16px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .counter-value::before {
+            content: '📊 ';
+        }
+
+        /* ========== STATUS BAR ========== */
+        .status-bar {
+            background: #c0c0c0;
+            padding: 2px 6px;
+            border: 1px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            font-size: 11px;
+            color: #000;
+            margin-top: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* ========== RESPONSIF ========== */
+        @media (max-width: 480px) {
+            .container {
+                padding: 4px;
+            }
+            .nav-btn {
+                font-size: 10px;
+                padding: 4px 2px;
+                min-width: 40px;
+            }
+            .action-buttons button {
+                font-size: 11px;
+                padding: 4px 6px;
+                min-width: 50px;
+            }
+            .window-title {
+                font-size: 11px;
+                padding: 2px 6px;
+            }
+            .section-title {
+                font-size: 11px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 2px;
+            }
+            .section-title .date-label {
+                font-size: 10px;
+            }
+        }
+        @media (max-width: 360px) {
+            .nav-buttons {
+                gap: 2px;
+            }
+            .nav-btn {
+                font-size: 9px;
+                padding: 3px 1px;
+                min-width: 30px;
+            }
+        }
     </style>
-
 </head>
-
 <body>
 
-    <!-- ===== INDICATOR SUPABASE ===== -->
-    <div id="supabaseIndicator" class="supabase-indicator indicator-checking" title="Status Koneksi Supabase">
+    <!-- ===== SUPABASE INDICATOR ===== -->
+    <div id="supabaseIndicator" class="supabase-indicator indicator-checking">
         <div class="indicator-dot"></div>
         <span class="indicator-tooltip">Menghubungkan...</span>
     </div>
 
     <!-- ===== APLIKASI UTAMA ===== -->
     <div id="appContainer" class="container">
-        <button id="installButton"><i class="fas fa-download"></i> Install App</button>
+
+        <!-- ===== WINDOW TITLE ===== -->
+        <div class="window-title">
+            <span>📋 DUKOPS - SISTEM PELAPORAN</span>
+            <button class="btn-close" onclick="if(confirm('Tutup aplikasi?')){document.body.innerHTML='';}">✕</button>
+        </div>
 
         <!-- ===== NAVIGASI ===== -->
         <div class="nav-buttons">
-            <button class="nav-btn nav-btn-dukops active" id="btnDukops" onclick="showDukops()">DUKOPS</button>
-            <button class="nav-btn nav-btn-piket" id="btnJadwal" onclick="showJadwalPiketBaru()">PIKET</button>
-            <button class="nav-btn nav-btn-hanpangan" id="btnHanpangan" onclick="showHanpangan()">HANPANGAN</button>
+            <button class="nav-btn active" id="btnDukops" onclick="showDukops()">📝 DUKOPS</button>
+            <button class="nav-btn" id="btnJadwal" onclick="showJadwalPiketBaru()">📅 PIKET</button>
+            <button class="nav-btn" id="btnHanpangan" onclick="showHanpangan()">🌾 HANPANGAN</button>
         </div>
 
         <!-- ===== DUKOPS CONTENT ===== -->
         <div id="dukopsContent">
-            <div style="width:100%; margin:0 auto;">
-                <label id="labelPilihDesa"><i class="fas fa-city"></i> Pilih Desa/Kelurahan:</label>
+            <div class="field-group">
+                <label>📍 Pilih Desa/Kelurahan:</label>
                 <select id="selectDesa" onchange="loadSelectedDesa()">
-                    <option value="">--Pilih desa/Kelurahan--</option>
+                    <option value="">-- Pilih desa/Kelurahan --</option>
                 </select>
-                <div id="loadingDesa" style="display:none;"><i class="fas fa-spinner fa-spin"></i> Memuat...</div>
+                <div id="loadingDesa" class="hidden text-muted" style="margin-top:2px;">⏳ Memuat...</div>
                 <div class="previewBox" id="previewDesa" style="display:none;"></div>
+            </div>
 
-                <label id="labelKoordinat" style="display:none;"><i class="fas fa-map-pin"></i> Koordinat:</label>
-                <div id="loadingKoordinat" style="display:none;"><i class="fas fa-spinner fa-spin"></i> Memuat koordinat...</div>
-                <div class="previewBox" id="previewKordinat"><span style="color:#6a7a8a;">Pilih desa/Kelurahan untuk melihat koordinat</span></div>
+            <div class="field-group">
+                <label>🗺️ Koordinat:</label>
+                <div id="loadingKoordinat" class="hidden text-muted">⏳ Memuat koordinat...</div>
+                <div class="previewBox" id="previewKordinat"><span class="text-muted">Pilih desa untuk melihat koordinat</span></div>
+            </div>
 
-                <label id="labelFotoKegiatan"><i class="fas fa-camera"></i> Foto Kegiatan:</label>
+            <div class="field-group">
+                <label>📷 Foto Kegiatan:</label>
                 <input type="file" id="gambar" accept="image/*" onchange="previewImage()">
                 <div class="previewBox" id="previewGambar"></div>
+            </div>
 
-                <label id="labelTanggalWaktu"><i class="fas fa-calendar-alt"></i> Tanggal & Waktu: <span id="tanggalWaktuLabelText">Pilih tanggal & waktu</span></label>
+            <div class="field-group">
+                <label>📅 Tanggal & Waktu: <span id="tanggalWaktuLabelText" style="font-weight:normal;">Pilih tanggal & waktu</span></label>
                 <input type="datetime-local" id="tanggalWaktu" onchange="updateDatePreview()">
+            </div>
 
-                <label><i class="fas fa-file-alt"></i> Narasi Kegiatan:</label>
-                <div class="narasi-wrapper">
-                    <textarea id="narasi" class="auto-height-textarea" rows="6" placeholder="Masukkan narasi kegiatan...✍️" oninput="checkInputCompletion(); autoResizeNarasi()"></textarea>
-                    <div class="ai-template-container">
-                        <button class="ai-template-btn" id="aiTemplateBtn"><i class="fas fa-robot"></i> Template AI</button>
-                    </div>
+            <div class="field-group">
+                <label>📝 Narasi Kegiatan:</label>
+                <textarea id="narasi" rows="5" placeholder="Masukkan narasi kegiatan..." oninput="checkInputCompletion()"></textarea>
+                <div style="margin-top:4px;">
+                    <button class="nav-btn" id="aiTemplateBtn" style="width:100%;font-size:12px;">🤖 Template AI</button>
                 </div>
+            </div>
 
-                <canvas id="canvas"></canvas>
+            <canvas id="canvas"></canvas>
 
-                <div class="action-buttons">
-                    <button id="submitBtn" onclick="processSubmission()" disabled><i class="fas fa-download"></i> KIRIM dan DOWNLOAD</button>
-                    <button id="resetBtn" onclick="resetAll()"><i class="fas fa-redo"></i> RESET</button>
-                </div>
+            <div class="action-buttons">
+                <button id="submitBtn" onclick="processSubmission()" disabled>📤 KIRIM</button>
+                <button id="resetBtn" onclick="resetAll()">🔄 RESET</button>
+            </div>
+
+            <div class="status-bar">
+                <span id="submissionCounter">📊 0</span>
+                <span id="statusInfo">Siap</span>
             </div>
         </div>
 
         <!-- ===== JADWAL PIKET ===== -->
         <div id="jadwalPiketContainerBaru" style="display:none;">
-            <div class="jadwal-header">
-                <h1 class="jadwal-title">JADWAL PIKET</h1>
-                <div class="app-logo-container">
-                    <img src="LOGO KOREM163 Wirasatya.png" alt="Logo Korem 163 Wirasatya" class="jadwal-logo">
-                </div>
-                <p>KORAMIL 1609-05/SUKASADA<br>Kodim 1609/Buleleng</p>
-            </div>
-
-            <div class="tanggal-info" id="tanggalInfo">📅 Memuat tanggal...</div>
-
-            <!-- Piket Koramil -->
             <div class="jadwal-section">
-                <div class="section-content">
-                    <div>
-                        <h3 class="section-title-koramil">Piket Koramil Hari Ini :</h3>
-                        <div class="row">
-                            <div class="col"><select id="j_nama1a_baru"><option value="">「 ✦ 𝐍𝐚𝐦a ✦ 」</option></select></div>
-                            <div class="col"><select id="j_nama1b_baru"><option value="">=✪=Nama=✪=</option></select></div>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="section-title-koramil">Piket Koramil Besok :</h3>
-                        <div class="row">
-                            <div class="col"><select id="j_nama2a_baru"><option value="">-- Pilih Nama --</option></select></div>
-                            <div class="col"><select id="j_nama2b_baru"><option value="">-- Pilih Nama --</option></select></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <div class="section-title">📅 JADWAL PIKET</div>
 
-            <!-- Kediaman -->
-            <div class="jadwal-section">
-                <div class="section-content">
-                    <div>
-                        <h3 class="section-title-kediaman">Jaga Kediaman Hari Ini :</h3>
-                        <div class="row">
-                            <div class="col"><select id="j_nama3a_baru"><option value="">-- Pilih Nama --</option></select></div>
-                            <div class="col"><select id="j_nama3b_baru"><option value="">-- Pilih Nama --</option></select></div>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="section-title-kediaman">Jaga Kediaman Besok :</h3>
-                        <div class="row">
-                            <div class="col"><select id="j_nama3c_baru"><option value="">-- Pilih Nama --</option></select></div>
-                            <div class="col"><select id="j_nama3d_baru"><option value="">-- Pilih Nama --</option></select></div>
-                        </div>
-                    </div>
+                <!-- Piket Koramil -->
+                <div class="section-title">
+                    🏛️ Piket Koramil
+                    <span class="date-label date-label-hari-ini" id="labelKoramilHariIni">Hari Ini: --</span>
+                    <span class="date-label date-label-besok" id="labelKoramilBesok">Besok: --</span>
                 </div>
-            </div>
+                <div class="group-box group-box-hari-ini">
+                    <label>📌 HARI INI</label>
+                    <select id="j_nama1a_baru" style="width:100%;margin-bottom:2px;"><option value="">Nama 1</option></select>
+                    <select id="j_nama1b_baru" style="width:100%;"><option value="">Nama 2</option></select>
+                </div>
+                <div class="group-box group-box-besok">
+                    <label>📌 BESOK</label>
+                    <select id="j_nama2a_baru" style="width:100%;margin-bottom:2px;"><option value="">Nama 1</option></select>
+                    <select id="j_nama2b_baru" style="width:100%;"><option value="">Nama 2</option></select>
+                </div>
 
-            <!-- Makodim -->
-            <div class="jadwal-section">
-                <div class="section-content">
-                    <div>
-                        <h3 class="section-title-makodim">Piket Makodim Hari ini :</h3>
-                        <div class="row">
-                            <div class="col"><select id="j_nama4a_baru"><option value="">-- Pilih Nama --</option></select></div>
-                            <div class="col"><select id="j_nama4b_baru"><option value="">-- Pilih Nama --</option></select></div>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="section-title-makodim">Piket Makodim Besok :</h3>
-                        <div class="row">
-                            <div class="col"><select id="j_nama4c_baru"><option value="">-- Pilih Nama --</option></select></div>
-                            <div class="col"><select id="j_nama4d_baru"><option value="">-- Pilih Nama --</option></select></div>
-                        </div>
-                    </div>
+                <div class="section-divider"></div>
+
+                <!-- Kediaman -->
+                <div class="section-title">
+                    🏠 Jaga Kediaman
+                    <span class="date-label date-label-hari-ini" id="labelKediamanHariIni">Hari Ini: --</span>
+                    <span class="date-label date-label-besok" id="labelKediamanBesok">Besok: --</span>
+                </div>
+                <div class="group-box group-box-hari-ini">
+                    <label>📌 HARI INI</label>
+                    <select id="j_nama3a_baru" style="width:100%;margin-bottom:2px;"><option value="">Nama 1</option></select>
+                    <select id="j_nama3b_baru" style="width:100%;"><option value="">Nama 2</option></select>
+                </div>
+                <div class="group-box group-box-besok">
+                    <label>📌 BESOK</label>
+                    <select id="j_nama3c_baru" style="width:100%;margin-bottom:2px;"><option value="">Nama 1</option></select>
+                    <select id="j_nama3d_baru" style="width:100%;"><option value="">Nama 2</option></select>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <!-- Makodim -->
+                <div class="section-title">
+                    🏢 Piket Makodim
+                    <span class="date-label date-label-hari-ini" id="labelMakodimHariIni">Hari Ini: --</span>
+                    <span class="date-label date-label-besok" id="labelMakodimBesok">Besok: --</span>
+                </div>
+                <div class="group-box group-box-hari-ini">
+                    <label>📌 HARI INI</label>
+                    <select id="j_nama4a_baru" style="width:100%;margin-bottom:2px;"><option value="">Nama 1</option></select>
+                    <select id="j_nama4b_baru" style="width:100%;"><option value="">Nama 2</option></select>
+                </div>
+                <div class="group-box group-box-besok">
+                    <label>📌 BESOK</label>
+                    <select id="j_nama4c_baru" style="width:100%;margin-bottom:2px;"><option value="">Nama 1</option></select>
+                    <select id="j_nama4d_baru" style="width:100%;"><option value="">Nama 2</option></select>
+                </div>
+
+                <button class="whatsapp-btn" id="whatsappBtnBaru">💬 KIRIM KE WHATSAPP</button>
+
+                <div style="margin-top:4px;">
+                    <textarea id="j_hasilPesanBaru" rows="4" readonly placeholder="Preview pesan..." style="width:100%;padding:4px;border:2px solid;border-color:#808080 #ffffff #ffffff #808080;background:#ffffff;font-size:12px;"></textarea>
+                    <div class="text-muted text-center" id="previewInfo" style="font-size:11px;margin-top:2px;">⏳ Memuat data dari Supabase...</div>
                 </div>
             </div>
-
-            <button id="whatsappBtnBaru" class="whatsapp-transparent-btn">
-                <i class="fab fa-whatsapp"></i> <span>KIRIM KE WHATSAPP</span>
-            </button>
-
-            <div class="jadwal-section">
-                <textarea id="j_hasilPesanBaru" class="auto-height-textarea" readonly placeholder="Preview pesan akan muncul di sini setelah memilih nama..."></textarea>
-                <div class="preview-status" id="previewInfo">⏳ Memuat data dari Supabase...</div>
-            </div>
-
-            <div class="data-info" id="dataInfo">📌 Data otomatis tersimpan</div>
-            <div class="app-loading" id="j_loadingIndicatorBaru"><i class="fas fa-spinner fa-spin"></i> Memuat data...</div>
         </div>
 
-        <!-- ===== TAB HANPANGAN ===== -->
-        <div id="hanpanganContent">
-            <iframe src="https://sukasada05.github.io/Hanpangan/" title="HANPANGAN"></iframe>
+        <!-- ===== HANPANGAN ===== -->
+        <div id="hanpanganContent" style="display:none;">
+            <div class="field-group" style="padding:4px;">
+                <div style="font-weight:bold;font-size:13px;margin-bottom:4px;">🌾 HANPANGAN</div>
+                <iframe src="https://sukasada05.github.io/Hanpangan/" title="HANPANGAN"></iframe>
+            </div>
         </div>
 
-        <div class="jadwal-toast" id="j_toastNotificationBaru"></div>
     </div>
 
-    <!-- ===== MODAL TEMPLATE AI ===== -->
+    <!-- ===== MODAL AI ===== -->
     <div id="templateModal" class="modal-ai">
         <div class="modal-ai-content">
             <div class="modal-ai-header">
-                <h3><i class="fas fa-robot"></i> Template Narasi AI</h3>
-                <button class="modal-close" id="closeModalBtn">&times;</button>
+                <h3>🤖 Template Narasi AI</h3>
+                <button class="modal-close" id="closeModalBtn">✕</button>
             </div>
             <div class="modal-ai-tabs" id="modalTabs"></div>
             <div class="modal-ai-body" id="modalBody"></div>
         </div>
     </div>
 
-    <!-- ============================================================
-    JAVASCRIPT - app.js
-    ============================================================ -->
-    <script src="app.js"></script>
+    <!-- ===== JS ===== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <!-- ===== SERVICE WORKER ===== -->
     <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('sw.js')
-                    .then(function(registration) {
-                        console.log('✅ Service Worker registered:', registration);
-                    })
-                    .catch(function(error) {
-                        console.log('❌ Service Worker registration failed:', error);
-                    });
+        // ================= KONFIGURASI =================
+        const GOOGLE_APPS_SCRIPT_WEBHOOK = "https://script.google.com/macros/s/AKfycbwJN7fFAjmAgwPiPpsPoASUjDjXFdGwexBvi2ECYNSlWn6Pp1UliQYJ9G-Wz3fA3Adj/exec";
+        const TARGET_LAPORAN = 9;
+
+        const GITHUB_URLS = {
+            HANPANGAN: "https://raw.githubusercontent.com/sukasada05/dukops4/main/data/hanpangan.txt",
+            PIKET: "https://raw.githubusercontent.com/sukasada05/dukops4/main/data/piket.txt"
+        };
+
+        // ================= VARIABEL =================
+        let img = new Image();
+        let selectedDesa = "";
+        let kordinatList = [];
+        let currentKoordinat = "";
+        let tanggalWaktu = "";
+        let submissionCount = 0;
+        let submittedDates = [];
+        let desaCounter = {};
+        let templateData = null;
+        let activeTab = null;
+        let categoryKeys = [];
+        let supabaseClient = null;
+        let isSupabaseConnected = false;
+        let autoSaveTimer = null;
+        let JadwalData2 = { daftarNama: [], daftarHanpangan: [], currentHanpangan: "" };
+        const JADWAL_DROPDOWN_IDS = ['j_nama1a_baru', 'j_nama1b_baru', 'j_nama2a_baru', 'j_nama2b_baru',
+            'j_nama3a_baru', 'j_nama3b_baru', 'j_nama3c_baru', 'j_nama3d_baru',
+            'j_nama4a_baru', 'j_nama4b_baru', 'j_nama4c_baru', 'j_nama4d_baru'
+        ];
+
+        // ================= DOM READY =================
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDesaList();
+            resetCanvas();
+            loadLastSubmittedDates();
+            loadDesaCounter();
+            loadTemplatesFromGitHub();
+
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('tanggalWaktu').value = `${year}-${month}-${day}T${hours}:${minutes}`;
+            updateDatePreview();
+
+            const savedCount = localStorage.getItem('dukopsSubmissionCount');
+            submissionCount = savedCount ? parseInt(savedCount) : 0;
+            updateCounterDisplay();
+
+            setupAITemplateButton();
+            setupJadwalPiket();
+
+            initSupabase();
+
+            // Update label tanggal setiap menit
+            updateAllDateLabels();
+            setInterval(updateAllDateLabels, 60000);
+
+            console.log('✅ DUKOPS APP READY');
+        });
+
+        // ================= UPDATE LABEL TANGGAL =================
+        function updateAllDateLabels() {
+            const now = new Date();
+            const tomorrow = new Date(now);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+
+            const formatDate = (date) => {
+                const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+                const months = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+                return days[date.getDay()] + ", " + date.getDate() + " " + months[date.getMonth()] + " " + date
+                .getFullYear();
+            };
+
+            const hariIni = formatDate(now);
+            const besok = formatDate(tomorrow);
+
+            const labels = [
+                'labelKoramilHariIni', 'labelKediamanHariIni', 'labelMakodimHariIni'
+            ];
+            labels.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = 'Hari Ini: ' + hariIni;
             });
+
+            const labelsBesok = [
+                'labelKoramilBesok', 'labelKediamanBesok', 'labelMakodimBesok'
+            ];
+            labelsBesok.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = 'Besok: ' + besok;
+            });
+        }
+
+        // ================= FUNGSI BACKEND =================
+        async function sendToBackend(action, data = {}) {
+            try {
+                const getActions = ['listFiles', 'getConfig', 'test', 'getJadwalData',
+                    'getPetugas', 'getPetugasByDate', 'getJadwalEpoch', 'cekGiliran',
+                    'getPersonelList', 'getDesaList', 'status', 'unzipStatus',
+                    'checkTriggers', 'checkLog', 'getFailed'
+                ];
+
+                if (getActions.includes(action)) {
+                    let url = `${GOOGLE_APPS_SCRIPT_WEBHOOK}?action=${action}`;
+                    if (action === 'listFiles') {
+                        if (data.desaFilter) url += `&desaFilter=${encodeURIComponent(data.desaFilter)}`;
+                        if (data.monthFilter) url += `&monthFilter=${encodeURIComponent(data.monthFilter)}`;
+                        if (data.readZips) url += `&readZips=true`;
+                    } else if (action === 'getJadwalData') {
+                        if (data.type) url += `&type=${encodeURIComponent(data.type)}`;
+                    } else if (action === 'getPetugasByDate') {
+                        if (data.tanggal) url += `&tanggal=${encodeURIComponent(data.tanggal)}`;
+                    } else if (action === 'getJadwalEpoch') {
+                        if (data.hari) url += `&hari=${encodeURIComponent(data.hari)}`;
+                    } else if (action === 'cekGiliran') {
+                        if (data.nama) url += `&nama=${encodeURIComponent(data.nama)}`;
+                    }
+                    const response = await fetch(url);
+                    return await response.json();
+                } else {
+                    const formData = new FormData();
+                    formData.append('action', action);
+                    Object.keys(data).forEach(key => {
+                        if (data[key] !== undefined && data[key] !== null) {
+                            if (key === 'fileData' && typeof data[key] === 'string') {
+                                formData.append(key, data[key]);
+                            } else {
+                                formData.append(key, String(data[key]));
+                            }
+                        }
+                    });
+                    const response = await fetch(GOOGLE_APPS_SCRIPT_WEBHOOK, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    return await response.json();
+                }
+            } catch (error) {
+                console.error(`Error in ${action}:`, error);
+                return { success: false, error: error.message };
+            }
+        }
+
+        // ================= UPLOAD DRIVE =================
+        async function uploadToGoogleDrive(zipBlob, zipFileName, desaName, date) {
+            try {
+                const base64Data = await blobToBase64(zipBlob);
+                const desaInfo = normalizeDesaName(desaName);
+                const result = await sendToBackend('uploadDrive', {
+                    fileName: zipFileName,
+                    fileData: base64Data,
+                    year: date.getFullYear().toString(),
+                    month: date.toLocaleDateString('id-ID', { month: 'long' }),
+                    desa: desaInfo.cleanName,
+                    mimeType: 'application/zip'
+                });
+                return result.success === true;
+            } catch (error) {
+                console.error('Error upload ke Drive:', error);
+                return false;
+            }
+        }
+
+        async function blobToBase64(blob) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result.split(',')[1]);
+                reader.readAsDataURL(blob);
+            });
+        }
+
+        // ================= DESA & KOORDINAT =================
+        function normalizeDesaName(desaName) {
+            if (!desaName) return { original: "", normalized: "", cleanName: "" };
+            let normalized = desaName.replace(/^Desa\s+/i, '').replace(/^Kelurahan\s+/i, '')
+                .replace(/Kel\.\s*/gi, '').replace(/Kel\s/gi, '').trim();
+            return {
+                original: desaName,
+                normalized: normalized,
+                cleanName: normalized.replace(/_/g, ' ')
+            };
+        }
+
+        async function loadDesaList() {
+            const select = document.getElementById('selectDesa');
+            const loading = document.getElementById('loadingDesa');
+            if (!select) return;
+            loading.classList.remove('hidden');
+
+            try {
+                const response = await fetch('data/desa-list.json?t=' + Date.now());
+                if (response.ok) {
+                    const data = await response.json();
+                    const desaList = data.desaList || [];
+                    select.innerHTML = '<option value="">-- Pilih Desa/Kelurahan --</option>';
+                    desaList.forEach(desa => {
+                        const option = document.createElement('option');
+                        option.value = desa;
+                        option.textContent = desa;
+                        option.setAttribute('data-raw-name', desa);
+                        select.appendChild(option);
+                    });
+                    console.log('✅ Desa loaded from lokal:', desaList.length);
+                } else {
+                    throw new Error('Lokal fetch failed');
+                }
+            } catch (error) {
+                const fallbackDesas = [
+                    "Gitgit", "Panji", "Panji Anom", "Sukasada", "Pancasari", "Wanagiri",
+                    "Ambengan", "Kayu Putih", "Padang Bulia", "Pegadungan",
+                    "Pegayaman", "Sambangan", "Selat", "Silangjana", "Tegallinggah"
+                ];
+                select.innerHTML = '<option value="">-- Pilih Desa/Kelurahan --</option>';
+                fallbackDesas.forEach(desa => {
+                    const option = document.createElement('option');
+                    option.value = desa;
+                    option.textContent = desa;
+                    option.setAttribute('data-raw-name', desa);
+                    select.appendChild(option);
+                });
+                console.log('✅ Desa loaded from fallback:', fallbackDesas.length);
+            }
+            loading.classList.add('hidden');
+        }
+
+        async function loadSelectedDesa() {
+            const select = document.getElementById('selectDesa');
+            const selectedOption = select.options[select.selectedIndex];
+            selectedDesa = selectedOption.getAttribute('data-raw-name') || selectedOption.text;
+
+            if (!selectedDesa) {
+                resetForm();
+                return;
+            }
+
+            const desaInfo = normalizeDesaName(selectedDesa);
+            const previewDesa = document.getElementById('previewDesa');
+            previewDesa.textContent = desaInfo.cleanName;
+            previewDesa.style.display = 'block';
+
+            const fotoLabel = document.getElementById('labelFotoKegiatan');
+            if (fotoLabel) {
+                fotoLabel.innerHTML = `📷 Foto Kegiatan: ${desaInfo.cleanName}`;
+            }
+
+            const loading = document.getElementById('loadingKoordinat');
+            loading.classList.remove('hidden');
+            document.getElementById('previewKordinat').textContent = "Memuat koordinat...";
+
+            try {
+                const githubUrl =
+                    `https://raw.githubusercontent.com/sukasada05/dukops4/main/data/coordinates/${selectedDesa}.json`;
+                console.log('📡 Mencoba dari GitHub:', githubUrl);
+                const response = await fetch(githubUrl + '?t=' + Date.now());
+
+                if (response.ok) {
+                    const jsonData = await response.json();
+                    if (jsonData.coordinates && jsonData.coordinates.length > 0) {
+                        kordinatList = jsonData.coordinates.map(coord =>
+                            `${coord.lat},${coord.lon},${coord.elevation || ''}`
+                        );
+                        pickRandomKoordinat();
+                        showNotification(`✅ Koordinat ${desaInfo.cleanName} dari GitHub (${kordinatList.length} titik)`,
+                            'success');
+                        loading.classList.add('hidden');
+                        updatePreview();
+                        checkInputCompletion();
+                        return;
+                    }
+                }
+
+                console.log('📡 GitHub gagal, mencoba dari lokal...');
+                const lokalUrl = `data/coordinates/${selectedDesa}.json`;
+                const lokalResponse = await fetch(lokalUrl + '?t=' + Date.now());
+
+                if (lokalResponse.ok) {
+                    const jsonData = await lokalResponse.json();
+                    if (jsonData.coordinates && jsonData.coordinates.length > 0) {
+                        kordinatList = jsonData.coordinates.map(coord =>
+                            `${coord.lat},${coord.lon},${coord.elevation || ''}`
+                        );
+                        pickRandomKoordinat();
+                        showNotification(`📁 Koordinat ${desaInfo.cleanName} dari LOKAL (${kordinatList.length} titik)`,
+                            'info');
+                        loading.classList.add('hidden');
+                        updatePreview();
+                        checkInputCompletion();
+                        return;
+                    }
+                }
+
+                console.warn('⚠️ Koordinat tidak ditemukan, pakai default');
+                kordinatList = ["-8.123,115.123,150"];
+                pickRandomKoordinat();
+                document.getElementById('previewKordinat').textContent = "⚠️ Koordinat default";
+                showNotification("⚠️ Koordinat tidak tersedia, pakai default", "warning");
+
+            } catch (error) {
+                console.error('❌ Error loading coordinates:', error);
+                kordinatList = ["-8.123,115.123,150"];
+                pickRandomKoordinat();
+                document.getElementById('previewKordinat').textContent = "⚠️ Koordinat default (error)";
+                showNotification("⚠️ Gagal memuat koordinat, pakai default", "error");
+            } finally {
+                loading.classList.add('hidden');
+                updatePreview();
+                checkInputCompletion();
+            }
+        }
+
+        function pickRandomKoordinat() {
+            if (kordinatList.length === 0) {
+                document.getElementById('previewKordinat').textContent = "Tidak ada data koordinat";
+                return;
+            }
+            const randomIndex = Math.floor(Math.random() * kordinatList.length);
+            currentKoordinat = kordinatList[randomIndex];
+            document.getElementById('previewKordinat').innerHTML = '📍 ' + currentKoordinat;
+            updatePreview();
+            checkInputCompletion();
+        }
+
+        // ================= FORM DUKOPS =================
+        function previewImage() {
+            const file = document.getElementById("gambar").files[0];
+            const preview = document.getElementById("previewGambar");
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    img = new Image();
+                    img.src = e.target.result;
+                    img.onload = function() {
+                        if (img.height > img.width) {
+                            document.getElementById("gambar").value = "";
+                            preview.textContent = "";
+                            img = new Image();
+                            showNotification("Foto portrait tidak diperbolehkan. Gunakan foto landscape.",
+                            "warning");
+                            checkInputCompletion();
+                            return;
+                        }
+                        if (kordinatList.length > 0) pickRandomKoordinat();
+                        preview.textContent = file.name;
+                        updatePreview();
+                    };
+                    img.onerror = function() {
+                        showNotification("Gagal memuat gambar", "error");
+                        document.getElementById("gambar").value = "";
+                        preview.textContent = "";
+                    };
+                };
+                reader.readAsDataURL(file);
+            } else {
+                img = new Image();
+                updatePreview();
+            }
+            checkInputCompletion();
+        }
+
+        function updateDatePreview() {
+            const tglInput = document.getElementById("tanggalWaktu").value;
+            const tanggalLabelText = document.getElementById('tanggalWaktuLabelText');
+
+            if (tglInput) {
+                const date = new Date(tglInput);
+                date.setSeconds(Math.floor(Math.random() * 60));
+                tanggalWaktu = date.toISOString();
+                const options = {
+                    weekday: 'long',
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                };
+                const displayText = date.toLocaleString('id-ID', options).replace(/:/g, '.');
+                if (tanggalLabelText) tanggalLabelText.textContent = displayText;
+            } else {
+                tanggalWaktu = "";
+                if (tanggalLabelText) tanggalLabelText.textContent = 'Pilih tanggal & waktu';
+            }
+            updatePreview();
+            checkInputCompletion();
+        }
+
+        function updatePreview() {
+            const canvas = document.getElementById("canvas");
+            const ctx = canvas.getContext("2d");
+
+            if (img.src && img.complete) {
+                canvas.width = 800;
+                canvas.height = Math.round(canvas.width * (img.height / img.width));
+            } else {
+                canvas.width = 800;
+                canvas.height = Math.round(canvas.width * (9 / 16));
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (img.src && img.complete) {
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            } else {
+                ctx.fillStyle = "#000";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+
+            if (selectedDesa || currentKoordinat || tanggalWaktu) {
+                ctx.textAlign = "right";
+                ctx.font = "36px Arial";
+                const bottomMargin = 20;
+                const lineHeight = 40;
+                const rightMargin = 10;
+
+                if (selectedDesa) {
+                    const desaInfo = normalizeDesaName(selectedDesa);
+                    const displayDesaName = desaInfo.cleanName;
+                    const watermarkText = (displayDesaName === "Sukasada" || displayDesaName === "SUKASADA") ?
+                        "Babinsa Kelurahan Sukasada" :
+                        "Babinsa " + displayDesaName;
+                    ctx.fillStyle = "white";
+                    ctx.fillText(watermarkText, canvas.width - rightMargin, canvas.height - bottomMargin - (lineHeight *
+                    2));
+                }
+
+                if (currentKoordinat) {
+                    ctx.fillStyle = "white";
+                    ctx.fillText(currentKoordinat, canvas.width - rightMargin, canvas.height - bottomMargin -
+                    lineHeight);
+                }
+
+                if (tanggalWaktu) {
+                    const date = new Date(tanggalWaktu);
+                    const dateText = date.toLocaleDateString("id-ID", {
+                        day: "2-digit",
+                        month: "long",
+                        year: "numeric"
+                    }) + ", " + date.toLocaleTimeString("id-ID", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit"
+                    });
+                    ctx.fillStyle = "white";
+                    ctx.fillText(dateText, canvas.width - rightMargin, canvas.height - bottomMargin);
+                }
+            }
+        }
+
+        function checkInputCompletion() {
+            const isComplete = selectedDesa && currentKoordinat && tanggalWaktu &&
+                img.src && img.complete && document.getElementById("narasi").value.trim();
+
+            const submitBtn = document.getElementById("submitBtn");
+            if (submitBtn) submitBtn.disabled = !isComplete;
+        }
+
+        // ================= SUBMIT LAPORAN =================
+        function validateSubmission() {
+            if (!selectedDesa) { showNotification("Masukkan nama desa terlebih dahulu", "warning"); return false; }
+            if (!currentKoordinat) { showNotification("Koordinat tidak valid", "warning"); return false; }
+            if (!tanggalWaktu) { showNotification("Isi tanggal dan waktu", "warning"); return false; }
+            if (!img.src || !img.complete) { showNotification("Upload foto kegiatan", "warning"); return false; }
+            if (!document.getElementById("narasi").value.trim()) { showNotification("Isi narasi kegiatan", "warning");
+            return false; }
+            return true;
+        }
+
+        function isSameDateMonthSubmission() {
+            if (!tanggalWaktu) return false;
+            const currentDate = new Date(tanggalWaktu);
+            return submittedDates.some(dateStr => {
+                const date = new Date(dateStr);
+                return date.getDate() === currentDate.getDate() && date.getMonth() === currentDate.getMonth();
+            });
+        }
+
+        async function processSubmission() {
+            if (!validateSubmission()) return;
+            if (isSameDateMonthSubmission()) {
+                showNotification("⚠ Sudah ada laporan di tanggal dan bulan yang sama!", "warning");
+                return;
+            }
+
+            const button = document.getElementById("submitBtn");
+            const originalText = button.innerHTML;
+            button.disabled = true;
+            button.innerHTML = '⏳ Memproses...';
+
+            try {
+                const canvas = document.getElementById("canvas");
+                const imgData = canvas.toDataURL("image/png");
+                const narasi = document.getElementById("narasi").value;
+                const date = new Date(tanggalWaktu);
+
+                const day = String(date.getDate()).padStart(2, '0');
+                const monthNum = String(date.getMonth() + 1);
+                const monthName = date.toLocaleDateString('id-ID', { month: 'long' });
+                const year = date.getFullYear();
+                const desaInfo = normalizeDesaName(selectedDesa);
+
+                const fileNameInsideZipImage = `${desaInfo.cleanName} ${day} ${monthName} ${year} Dukops.png`;
+                const fileNameInsideZipNarasi = `${desaInfo.cleanName} ${day} ${monthName} ${year} Narasi.txt`;
+                const zipFileName = `${desaInfo.cleanName} ${day} ${monthNum} ${year}.zip`;
+
+                const formattedDate = date.toLocaleDateString('id-ID', {
+                    weekday: 'long', day: '2-digit', month: 'long', year: 'numeric'
+                });
+                const narasiContent = `${formattedDate}\tBabinsa ${desaInfo.cleanName} ${narasi}`;
+
+                const zip = new JSZip();
+                zip.file(fileNameInsideZipNarasi, narasiContent);
+                zip.file(fileNameInsideZipImage, imgData.split("base64,")[1], { base64: true });
+
+                const content = await zip.generateAsync({ type: "blob" });
+
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(content);
+                a.download = zipFileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+
+                const driveUploaded = await uploadToGoogleDrive(content, zipFileName, selectedDesa, date);
+                const desaData = updateDesaCounter(selectedDesa, zipFileName);
+
+                if (driveUploaded) {
+                    showNotification(`✔ Laporan berhasil disimpan (${desaData.count}/${TARGET_LAPORAN} laporan)`,
+                        "success");
+                } else {
+                    showNotification(`⚠ Laporan hanya didownload, gagal simpan ke Drive`, "warning");
+                }
+
+                if (desaData.count >= 9) {
+                    showThankYouPopup(desaInfo.cleanName, desaData.count);
+                }
+
+                updateCounter();
+                saveSubmittedDate(tanggalWaktu);
+
+            } catch (error) {
+                console.error("Error:", error);
+                showNotification("❌ Gagal mengirim laporan", "error");
+            } finally {
+                button.disabled = false;
+                button.innerHTML = '📤 KIRIM';
+            }
+        }
+
+        // ================= COUNTER & STORAGE =================
+        function updateCounter() {
+            submissionCount++;
+            updateCounterDisplay();
+            localStorage.setItem('dukopsSubmissionCount', submissionCount.toString());
+        }
+
+        function updateCounterDisplay() {
+            document.getElementById('submissionCounter').textContent = '📊 ' + submissionCount;
+        }
+
+        function loadDesaCounter() {
+            const savedCounter = localStorage.getItem('dukopsDesaCounter');
+            desaCounter = savedCounter ? JSON.parse(savedCounter) : {};
+        }
+
+        function updateDesaCounter(desaName, fileName) {
+            const date = new Date(tanggalWaktu);
+            const monthYear = date.toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
+
+            if (!desaCounter[desaName]) {
+                desaCounter[desaName] = { count: 0, files: [], month: monthYear };
+            }
+
+            if (desaCounter[desaName].month !== monthYear) {
+                desaCounter[desaName] = { count: 1, files: [fileName], month: monthYear };
+            } else {
+                desaCounter[desaName].count++;
+                desaCounter[desaName].files.push(fileName);
+                if (desaCounter[desaName].files.length > TARGET_LAPORAN) {
+                    desaCounter[desaName].files.shift();
+                }
+            }
+
+            localStorage.setItem('dukopsDesaCounter', JSON.stringify(desaCounter));
+            return desaCounter[desaName];
+        }
+
+        function saveSubmittedDate(dateStr) {
+            submittedDates.push(dateStr);
+            localStorage.setItem('dukopsSubmittedDates', JSON.stringify(submittedDates));
+        }
+
+        function loadLastSubmittedDates() {
+            const savedDates = localStorage.getItem('dukopsSubmittedDates');
+            submittedDates = savedDates ? JSON.parse(savedDates) : [];
+        }
+
+        function resetAll() {
+            if (confirm("Reset semua data?")) {
+                submissionCount = 0;
+                updateCounterDisplay();
+                localStorage.setItem('dukopsSubmissionCount', '0');
+                submittedDates = [];
+                localStorage.removeItem('dukopsSubmittedDates');
+                desaCounter = {};
+                localStorage.removeItem('dukopsDesaCounter');
+                resetForm();
+                showNotification("Data direset", "success");
+            }
+        }
+
+        function resetForm() {
+            selectedDesa = "";
+            kordinatList = [];
+            currentKoordinat = "";
+            document.getElementById('selectDesa').value = "";
+            document.getElementById('previewDesa').textContent = "";
+            document.getElementById('previewDesa').style.display = 'none';
+            document.getElementById('previewKordinat').textContent = "Pilih desa untuk melihat koordinat";
+            document.getElementById('narasi').value = "";
+            document.getElementById('gambar').value = "";
+            document.getElementById('tanggalWaktu').value = "";
+            document.getElementById('previewGambar').textContent = "";
+            document.getElementById('tanggalWaktuLabelText').textContent = 'Pilih tanggal & waktu';
+            checkInputCompletion();
+            updatePreview();
+            resetCanvas();
+        }
+
+        function resetCanvas() {
+            const canvas = document.getElementById("canvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = 800;
+            canvas.height = Math.round(canvas.width / (16 / 9));
+            ctx.fillStyle = "#000";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // ================= NOTIFIKASI =================
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => notification.remove(), 500);
+            }, 3000);
+        }
+
+        function showThankYouPopup(desaName, count) {
+            const modal = document.createElement('div');
+            modal.style.cssText =
+                'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:99999;';
+            modal.innerHTML = `
+                <div style="background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;padding:20px;max-width:400px;width:90%;text-align:center;">
+                    <div style="font-size:48px;color:#008000;margin-bottom:12px;">🏆</div>
+                    <h2 style="color:#000;margin-bottom:10px;">🎉 SELAMAT!</h2>
+                    <p style="color:#000;font-size:15px;">
+                        <strong>Babinsa ${desaName}</strong><br>
+                        Telah menyelesaikan <strong>${count} laporan</strong> untuk bulan ini!
+                    </p>
+                    <div style="background:#d0d0d0;border:1px solid #808080;padding:8px;margin:12px 0;color:#000;">
+                        ✅ Target 9 laporan per bulan TERCAPAI!
+                    </div>
+                    <button onclick="this.closest('.thankyou-popup').remove()" style="background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;padding:6px 20px;font-weight:bold;cursor:pointer;width:100%;font-size:14px;">
+                        👍 TERIMA KASIH
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            setTimeout(() => { if (modal.parentNode) modal.remove(); }, 10000);
+        }
+
+        // ================= NAVIGASI =================
+        function showDukops() {
+            document.getElementById('dukopsContent').style.display = 'block';
+            document.getElementById('jadwalPiketContainerBaru').style.display = 'none';
+            document.getElementById('hanpanganContent').style.display = 'none';
+            document.getElementById('btnDukops').classList.add('active');
+            document.getElementById('btnJadwal').classList.remove('active');
+            document.getElementById('btnHanpangan').classList.remove('active');
+        }
+
+        function showJadwalPiketBaru() {
+            document.getElementById('dukopsContent').style.display = 'none';
+            document.getElementById('jadwalPiketContainerBaru').style.display = 'block';
+            document.getElementById('hanpanganContent').style.display = 'none';
+            document.getElementById('btnDukops').classList.remove('active');
+            document.getElementById('btnJadwal').classList.add('active');
+            document.getElementById('btnHanpangan').classList.remove('active');
+            if (!window._jadwalInitialized) {
+                window._jadwalInitialized = true;
+                initJadwalBaru();
+            }
+            // Update labels saat tab dibuka
+            updateAllDateLabels();
+        }
+
+        function showHanpangan() {
+            document.getElementById('dukopsContent').style.display = 'none';
+            document.getElementById('jadwalPiketContainerBaru').style.display = 'none';
+            document.getElementById('hanpanganContent').style.display = 'block';
+            document.getElementById('btnDukops').classList.remove('active');
+            document.getElementById('btnJadwal').classList.remove('active');
+            document.getElementById('btnHanpangan').classList.add('active');
+        }
+
+        // ================= AI TEMPLATE =================
+        function setupAITemplateButton() {
+            const openModalBtn = document.getElementById('aiTemplateBtn');
+            if (!openModalBtn) return;
+
+            openModalBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const modal = document.getElementById('templateModal');
+                if (!modal) return;
+
+                if (!templateData) {
+                    const modalBody = document.getElementById('modalBody');
+                    if (modalBody) {
+                        modalBody.innerHTML =
+                            '<div class="loading-templates">⏳ Memuat template...</div>';
+                    }
+                    modal.classList.add('show');
+                    loadTemplatesFromGitHub().then(() => {
+                        if (templateData) {
+                            renderModalTabs();
+                            renderModalTemplateList();
+                        }
+                    });
+                } else {
+                    renderModalTabs();
+                    renderModalTemplateList();
+                    modal.classList.add('show');
+                }
+            });
+
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', function() {
+                    document.getElementById('templateModal').classList.remove('show');
+                });
+            }
+
+            window.addEventListener('click', function(e) {
+                const modal = document.getElementById('templateModal');
+                if (modal && e.target === modal) {
+                    modal.classList.remove('show');
+                }
+            });
+        }
+
+        async function loadTemplatesFromGitHub() {
+            try {
+                const response = await fetch('template-narasi.json?t=' + Date.now());
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const data = await response.json();
+                templateData = data.templates;
+                categoryKeys = Object.keys(templateData);
+                if (categoryKeys.length > 0) activeTab = categoryKeys[0];
+                console.log("✅ Template AI dimuat:", categoryKeys.length, "kategori");
+                return true;
+            } catch (error) {
+                console.error("❌ Gagal memuat template:", error);
+                const modalBody = document.getElementById('modalBody');
+                if (modalBody) {
+                    modalBody.innerHTML =
+                        '<div class="loading-templates" style="color:#ff0000;">❌ Gagal memuat template. Cek koneksi!</div>';
+                }
+                return false;
+            }
+        }
+
+        function renderModalTabs() {
+            const modalTabs = document.getElementById('modalTabs');
+            if (!modalTabs) return;
+            modalTabs.innerHTML = "";
+            if (!categoryKeys.length) {
+                modalTabs.innerHTML = '<div class="text-muted">Memuat kategori...</div>';
+                return;
+            }
+            const selectWrapper = document.createElement('div');
+            selectWrapper.style.cssText = 'width:100%;margin-bottom:6px;';
+            const selectElement = document.createElement('select');
+            selectElement.style.cssText =
+                'width:100%;padding:3px 4px;border:2px solid;border-color:#808080 #ffffff #ffffff #808080;background:#ffffff;';
+            categoryKeys.forEach(key => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = key;
+                if (activeTab === key) option.selected = true;
+                selectElement.appendChild(option);
+            });
+            selectElement.onchange = (e) => {
+                activeTab = e.target.value;
+                renderModalTemplateList();
+            };
+            selectWrapper.appendChild(selectElement);
+            modalTabs.appendChild(selectWrapper);
+        }
+
+        function renderModalTemplateList() {
+            const modalBody = document.getElementById('modalBody');
+            if (!modalBody) return;
+            if (!templateData || !templateData[activeTab]) {
+                modalBody.innerHTML = '<div class="text-muted">❌ Template tidak ditemukan</div>';
+                return;
+            }
+            const templates = templateData[activeTab];
+            if (templates.length === 0) {
+                modalBody.innerHTML = '<div class="text-muted">📭 Belum ada template</div>';
+                return;
+            }
+            let html = '<div class="modal-template-list">';
+            templates.forEach((template, idx) => {
+                const escapedTemplate = template.replace(/'/g, "\\'").replace(/"/g, '&quot;').replace(/\n/g,
+                '\\n');
+                const displayTemplate = template.length > 120 ? template.substring(0, 120) + '...' : template;
+                html += `
+                    <div class="modal-template-item" onclick="window.selectTemplate('${escapedTemplate}')">
+                        <div style="font-size:0.6rem;color:#008000;margin-bottom:2px;">#${idx + 1}</div>
+                        <div class="modal-template-text">${displayTemplate}</div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            modalBody.innerHTML = html;
+        }
+
+        window.selectTemplate = function(template) {
+            console.log("✅ Template dipilih:", template.substring(0, 50) + '...');
+            const narasiField = document.getElementById('narasi');
+            const namaDesa = getNamaDesaTerpilih();
+            let finalTemplate = template;
+            if (namaDesa) {
+                finalTemplate = finalTemplate.replace(/\bdesa\b/gi, `Desa ${namaDesa}`);
+                finalTemplate = finalTemplate.replace(/\bkelurahan\b/gi, `Kelurahan ${namaDesa}`);
+            }
+            narasiField.value = finalTemplate;
+            document.getElementById('templateModal').classList.remove('show');
+            const event = new Event('input', { bubbles: true });
+            narasiField.dispatchEvent(event);
+            checkInputCompletion();
+            showNotification('✅ Template berhasil diterapkan!', 'success');
+        };
+
+        function getNamaDesaTerpilih() {
+            const selectDesa = document.getElementById('selectDesa');
+            if (!selectDesa) return "";
+            const option = selectDesa.options[selectDesa.selectedIndex];
+            return option ? option.text : "";
+        }
+
+        // ================= JADWAL PIKET (SUPABASE) =================
+        const SUPABASE_URL = 'https://wausfsflcehizpuqdwbg.supabase.co';
+        const SUPABASE_ANON_KEY =
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndhdXNmc2ZsY2VoaXpwdXFkd2JnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMxMTA3ODQsImV4cCI6MjA5ODY4Njc4NH0.2zF7iogzuTwWoQc451-uKxQdNN1C-qkB0O9Jvz1ZoI0';
+
+        function updateIndicator(status, message) {
+            const indicator = document.getElementById('supabaseIndicator');
+            if (!indicator) return;
+            indicator.classList.remove('indicator-online', 'indicator-offline', 'indicator-checking');
+            if (status === 'online') {
+                indicator.classList.add('indicator-online');
+                indicator.title = '🟢 Supabase Terhubung';
+            } else if (status === 'offline') {
+                indicator.classList.add('indicator-offline');
+                indicator.title = '🔴 Supabase Terputus';
+            } else {
+                indicator.classList.add('indicator-checking');
+                indicator.title = '📡 Menghubungkan...';
+            }
+            const tooltip = indicator.querySelector('.indicator-tooltip');
+            if (tooltip) tooltip.textContent = message || (status === 'online' ? 'Terhubung' : 'Terputus');
+        }
+
+        function fetchFromGitHub(url) {
+            return new Promise(resolve => {
+                fetch(url + '?t=' + new Date().getTime())
+                    .then(res => res.ok ? res.text() : null)
+                    .then(data => resolve(data))
+                    .catch(() => resolve(null));
+            });
+        }
+
+        function loadPiketData() {
+            return fetchFromGitHub(GITHUB_URLS.PIKET).then(data => {
+                if (data) {
+                    JadwalData2.daftarNama = data.trim().split('\n').filter(l => l.trim()).map(n => n.trim());
+                    JADWAL_DROPDOWN_IDS.forEach(id => {
+                        const select = document.getElementById(id);
+                        if (select) {
+                            const currentValue = select.value;
+                            select.innerHTML = '<option value="">-- Pilih Nama --</option>';
+                            JadwalData2.daftarNama.forEach(nama => {
+                                const opt = document.createElement('option');
+                                opt.value = nama;
+                                opt.textContent = nama;
+                                select.appendChild(opt);
+                            });
+                            if (currentValue) select.value = currentValue;
+                        }
+                    });
+                    return true;
+                }
+                return false;
+            });
+        }
+
+        function loadHanpanganData() {
+            return fetchFromGitHub(GITHUB_URLS.HANPANGAN).then(data => {
+                if (data) {
+                    const lines = data.trim().split('\n').filter(l => l.trim());
+                    if (lines.length) {
+                        JadwalData2.daftarHanpangan = lines;
+                        const today = new Date();
+                        const epochDays = Math.floor(today.getTime() / (24 * 60 * 60 * 1000));
+                        const referenceDate = new Date(2024, 0, 1);
+                        const epochDaysRef = Math.floor(referenceDate.getTime() / (24 * 60 * 60 * 1000));
+                        let offset = (0 - epochDaysRef) % lines.length;
+                        if (offset < 0) offset += lines.length;
+                        let index = (epochDays + offset) % lines.length;
+                        if (index < 0) index += lines.length;
+                        JadwalData2.currentHanpangan = lines[index];
+                        return true;
+                    }
+                }
+                return false;
+            });
+        }
+
+        function formatTanggal(date) {
+            const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+            const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
+                "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+            ];
+            return days[date.getDay()] + ", " + date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
+        }
+
+        function formatDateDB(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        function updatePreviewJadwal() {
+            const now = new Date();
+            const tomorrow = new Date();
+            tomorrow.setDate(now.getDate() + 1);
+
+            const getVal = (id) => document.getElementById(id)?.value || "";
+
+            const sections = [
+                { names: [getVal('j_nama1a_baru'), getVal('j_nama1b_baru')], title: formatTanggal(now), suffix: "" },
+                { names: [getVal('j_nama2a_baru'), getVal('j_nama2b_baru')], title: formatTanggal(tomorrow),
+                suffix: "" },
+                { names: [getVal('j_nama3a_baru'), getVal('j_nama3b_baru')], title: formatTanggal(now),
+                    suffix: " (Kediaman)" },
+                { names: [getVal('j_nama3c_baru'), getVal('j_nama3d_baru')], title: formatTanggal(tomorrow),
+                    suffix: " (Kediaman)" },
+                { names: [getVal('j_nama4a_baru'), getVal('j_nama4b_baru')], title: formatTanggal(now),
+                    suffix: " (Makodim)" },
+                { names: [getVal('j_nama4c_baru'), getVal('j_nama4d_baru')], title: formatTanggal(tomorrow),
+                    suffix: " (Makodim)" }
+            ];
+
+            let result =
+                "_____________________________\n*KORAMIL 1609-05/SUKASADA*\n    *JADWAL DINAS DALAM*\n_____________________________\n\n";
+            let sectionCount = 0;
+
+            for (const s of sections) {
+                const valid = s.names.filter(n => n && n.trim());
+                if (valid.length) {
+                    result += String.fromCharCode(65 + sectionCount) + ". " + s.title + s.suffix + "\n";
+                    valid.forEach((n, i) => result += "   " + (i + 1) + ". " + n + "\n");
+                    result += "\n";
+                    sectionCount++;
+                }
+            }
+
+            if (JadwalData2.currentHanpangan) {
+                result += "*🌾Jadwal Hanpangan hari ini :* " + JadwalData2.currentHanpangan + "\n\n";
+            }
+            result += "*Demikian MMP.*";
+
+            const preview = document.getElementById('j_hasilPesanBaru');
+            if (preview) {
+                preview.value = result;
+                setTimeout(() => {
+                    preview.style.height = 'auto';
+                    preview.style.height = preview.scrollHeight + 'px';
+                }, 10);
+            }
+        }
+
+        function triggerAutoSave() {
+            if (autoSaveTimer) clearTimeout(autoSaveTimer);
+            updatePreviewJadwal();
+            autoSaveTimer = setTimeout(() => {
+                if (isSupabaseConnected) autoSaveToSupabase();
+            }, 1500);
+        }
+
+        async function autoSaveToSupabase() {
+            if (!supabaseClient || !isSupabaseConnected) return;
+            try {
+                const getVal = (id) => document.getElementById(id)?.value.trim() || '';
+                const now = new Date();
+                const tomorrow = new Date();
+                tomorrow.setDate(now.getDate() + 1);
+                const todayStr = formatDateDB(now);
+                const tomorrowStr = formatDateDB(tomorrow);
+
+                const jadwalList = [
+                    { tanggal: todayStr, jenis: 'koramil_hari_ini', nama1: getVal('j_nama1a_baru'), nama2: getVal(
+                            'j_nama1b_baru') },
+                    { tanggal: tomorrowStr, jenis: 'koramil_besok', nama1: getVal('j_nama2a_baru'), nama2: getVal(
+                            'j_nama2b_baru') },
+                    { tanggal: todayStr, jenis: 'kediaman_hari_ini', nama1: getVal('j_nama3a_baru'), nama2: getVal(
+                            'j_nama3b_baru') },
+                    { tanggal: tomorrowStr, jenis: 'kediaman_besok', nama1: getVal('j_nama3c_baru'), nama2: getVal(
+                            'j_nama3d_baru') },
+                    { tanggal: todayStr, jenis: 'makodim_hari_ini', nama1: getVal('j_nama4a_baru'), nama2: getVal(
+                            'j_nama4b_baru') },
+                    { tanggal: tomorrowStr, jenis: 'makodim_besok', nama1: getVal('j_nama4c_baru'), nama2: getVal(
+                            'j_nama4d_baru') }
+                ];
+
+                const validJadwal = jadwalList.filter(j => j.nama1 || j.nama2);
+                if (validJadwal.length === 0) return;
+
+                await supabaseClient.from('jadwal_piket').delete()
+                    .or(`tanggal_jadwal.eq.${todayStr},tanggal_jadwal.eq.${tomorrowStr}`);
+
+                for (const jadwal of validJadwal) {
+                    await supabaseClient.from('jadwal_piket').insert([{
+                        tanggal_jadwal: jadwal.tanggal,
+                        jenis: jadwal.jenis,
+                        nama1: jadwal.nama1 || null,
+                        nama2: jadwal.nama2 || null,
+                        tanggal_input: new Date().toISOString()
+                    }]);
+                }
+
+                document.getElementById('previewInfo').textContent = '✅ Auto-saved ke Supabase';
+                document.getElementById('previewInfo').style.color = '#000';
+                setTimeout(() => {
+                    document.getElementById('previewInfo').textContent = '✅ Data dari Supabase';
+                }, 2000);
+            } catch (error) {
+                console.error('❌ Auto-save error:', error);
+            }
+        }
+
+        async function loadDataFromSupabase() {
+            if (!supabaseClient || !isSupabaseConnected) return;
+            try {
+                const now = new Date();
+                const tomorrow = new Date();
+                tomorrow.setDate(now.getDate() + 1);
+                const todayStr = formatDateDB(now);
+                const tomorrowStr = formatDateDB(tomorrow);
+
+                const { data, error } = await supabaseClient
+                    .from('jadwal_piket')
+                    .select('*')
+                    .or(`tanggal_jadwal.eq.${todayStr},tanggal_jadwal.eq.${tomorrowStr}`)
+                    .order('tanggal_jadwal', { ascending: true });
+
+                if (error) throw error;
+
+                JADWAL_DROPDOWN_IDS.forEach(id => {
+                    const select = document.getElementById(id);
+                    if (select) select.value = '';
+                });
+
+                if (data && data.length > 0) {
+                    const mapping = {
+                        'koramil_hari_ini': ['j_nama1a_baru', 'j_nama1b_baru'],
+                        'koramil_besok': ['j_nama2a_baru', 'j_nama2b_baru'],
+                        'kediaman_hari_ini': ['j_nama3a_baru', 'j_nama3b_baru'],
+                        'kediaman_besok': ['j_nama3c_baru', 'j_nama3d_baru'],
+                        'makodim_hari_ini': ['j_nama4a_baru', 'j_nama4b_baru'],
+                        'makodim_besok': ['j_nama4c_baru', 'j_nama4d_baru']
+                    };
+
+                    data.forEach(item => {
+                        const ids = mapping[item.jenis];
+                        if (ids) {
+                            if (item.nama1) {
+                                const select1 = document.getElementById(ids[0]);
+                                if (select1 && JadwalData2.daftarNama.includes(item.nama1)) select1.value = item
+                                    .nama1;
+                            }
+                            if (item.nama2) {
+                                const select2 = document.getElementById(ids[1]);
+                                if (select2 && JadwalData2.daftarNama.includes(item.nama2)) select2.value = item
+                                    .nama2;
+                            }
+                        }
+                    });
+
+                    document.getElementById('previewInfo').textContent = '✅ Data dari Supabase (' + data.length +
+                        ' item)';
+                    document.getElementById('previewInfo').style.color = '#000';
+                } else {
+                    document.getElementById('previewInfo').textContent = '📭 Belum ada data, silakan pilih nama';
+                    document.getElementById('previewInfo').style.color = '#000';
+                }
+                updatePreviewJadwal();
+            } catch (error) {
+                console.error('❌ Error load data:', error);
+                document.getElementById('previewInfo').textContent = '❌ Gagal memuat data';
+                document.getElementById('previewInfo').style.color = '#000';
+            }
+        }
+
+        async function initSupabase() {
+            updateIndicator('checking', 'Menghubungkan...');
+            try {
+                if (typeof supabase === 'undefined') {
+                    updateIndicator('offline', 'SDK tidak ditemukan');
+                    return false;
+                }
+                supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                const { error } = await supabaseClient.from('jadwal_piket').select('id').limit(1);
+                if (error) {
+                    updateIndicator('offline', 'Error: ' + error.message);
+                    isSupabaseConnected = false;
+                    return false;
+                }
+                isSupabaseConnected = true;
+                updateIndicator('online', 'Terhubung!');
+                await loadDataFromSupabase();
+                return true;
+            } catch (error) {
+                console.error('❌ Error init:', error);
+                updateIndicator('offline', 'Gagal konek');
+                isSupabaseConnected = false;
+                return false;
+            }
+        }
+
+        function setupJadwalPiket() {
+            const btn = document.getElementById('whatsappBtnBaru');
+            if (btn) {
+                const newBtn = btn.cloneNode(true);
+                btn.parentNode.replaceChild(newBtn, btn);
+                newBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const preview = document.getElementById('j_hasilPesanBaru');
+                    if (preview && preview.value) {
+                        window.open("https://wa.me/?text=" + encodeURIComponent(preview.value), "_blank");
+                    }
+                });
+            }
+        }
+
+        async function initJadwalBaru() {
+            console.log('🔍 Inisialisasi Jadwal...');
+
+            JADWAL_DROPDOWN_IDS.forEach(id => {
+                const sel = document.getElementById(id);
+                if (sel) sel.addEventListener('change', triggerAutoSave);
+            });
+
+            await loadPiketData();
+            await loadHanpanganData();
+            updatePreviewJadwal();
+            await initSupabase();
+            console.log('✅ Jadwal siap!');
         }
     </script>
 
