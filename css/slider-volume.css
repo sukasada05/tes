@@ -1,0 +1,119 @@
+/* ================================================================
+   SLIDER-VOLUME.CSS - GARIS PANJANG + PUTIH
+   ================================================================ */
+
+/* ===== SLIDER - PANJANG MENGIKUTI ALAMAT ===== */
+.audio-volume-slider {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    width: 100% !important;           /* ← MENGIKUTI LEBAR */
+    max-width: 380px !important;      /* ← SEPANJANG ALAMAT */
+    height: 3px !important;
+    background: rgba(255, 255, 255, 0.25) !important;
+    border-radius: 3px !important;
+    outline: none !important;
+    cursor: pointer !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+}
+
+/* ===== TANPA WARNA KUNING ===== */
+.audio-volume-slider {
+    background: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* ===== BULAT PUTIH KECIL ===== */
+.audio-volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 50% !important;
+    background: #ffffff !important;
+    cursor: pointer !important;
+    margin-top: -3.5px !important;
+    border: none !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.2s ease !important;
+}
+
+.audio-volume-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15) !important;
+}
+
+/* ===== FIREFOX ===== */
+.audio-volume-slider::-moz-range-thumb {
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 50% !important;
+    background: #ffffff !important;
+    cursor: pointer !important;
+    border: none !important;
+}
+
+.audio-volume-slider::-moz-range-track {
+    height: 3px !important;
+    background: rgba(255, 255, 255, 0.25) !important;
+    border: none !important;
+    border-radius: 3px !important;
+}
+
+/* ===== WRAPPER ===== */
+.audio-control-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-top: 4px !important;
+    padding: 2px 0 !important;
+    width: 100% !important;
+    max-width: 380px !important;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+    .audio-volume-slider {
+        height: 2px !important;
+        max-width: 280px !important;
+    }
+    
+    .audio-volume-slider::-webkit-slider-thumb {
+        width: 8px !important;
+        height: 8px !important;
+        margin-top: -3px !important;
+    }
+    
+    .audio-volume-slider::-moz-range-thumb {
+        width: 8px !important;
+        height: 8px !important;
+    }
+    
+    .audio-control-wrapper {
+        max-width: 280px !important;
+    }
+}
+
+@media (max-width: 360px) {
+    .audio-volume-slider {
+        max-width: 200px !important;
+        height: 2px !important;
+    }
+    
+    .audio-volume-slider::-webkit-slider-thumb {
+        width: 6px !important;
+        height: 6px !important;
+        margin-top: -2px !important;
+    }
+    
+    .audio-volume-slider::-moz-range-thumb {
+        width: 6px !important;
+        height: 6px !important;
+    }
+    
+    .audio-control-wrapper {
+        max-width: 200px !important;
+    }
+}
+/* ===== End of slider-volume.css ===== */

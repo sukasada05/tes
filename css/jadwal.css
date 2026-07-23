@@ -1,0 +1,920 @@
+/* ================================================================
+   JADWAL.CSS - JADWAL PIKET (FULL VERSION - LOGO KIRI + TEKS CENTER)
+   ================================================================ */
+
+/* ================================================================
+   ROOT - UKURAN FONT DASAR (Responsive Full Screen)
+   ================================================================ */
+:root {
+    --font-size-xs: clamp(11px, 2.2vw, 14px);
+    --font-size-sm: clamp(14px, 2.8vw, 18px);
+    --font-size-md: clamp(17px, 3.5vw, 22px);
+    --font-size-lg: clamp(21px, 4.5vw, 28px);
+    --font-size-xl: clamp(26px, 5.5vw, 34px);
+    --font-size-xxl: clamp(30px, 6.5vw, 42px);
+    
+    /* Ukuran font dropdown = preview (DIPERBESAR) */
+    --font-size-select: clamp(16px, 3.2vw, 22px);
+    
+    /* Ukuran font tombol WhatsApp */
+    --font-size-btn: clamp(18px, 3.8vw, 26px);
+}
+
+/* ================================================================
+   BACKGROUND UTAMA TAB PIKET - GRADIEN BIRU LANGIT + ORANGE 3D
+   ================================================================ */
+#jadwalPiketContainerBaru {
+    background: linear-gradient(145deg, #e3f2fd 0%, #fff3e0 50%, #e3f2fd 100%) !important;
+    padding: clamp(10px, 2.5vw, 20px) !important;
+    border-radius: 16px !important;
+    box-shadow: 
+        0 8px 0 #b0bec5,
+        0 12px 40px rgba(0, 0, 0, 0.10),
+        inset 0 -4px 8px rgba(0, 0, 0, 0.03),
+        inset 0 4px 12px rgba(255, 255, 255, 0.6) !important;
+}
+
+/* ================================================================
+   HEADER JADWAL - FLEXBOX UNTUK LOGO KIRI & TEKS CENTER
+   ================================================================ */
+.jadwal-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 15px !important;
+    margin-bottom: clamp(8px, 2vw, 16px) !important;
+    padding: clamp(6px, 1.5vw, 12px) clamp(10px, 2vw, 20px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), transparent) !important;
+    border-radius: 8px 8px 0 0 !important;
+    flex-wrap: wrap !important;
+}
+
+/* ================================================================
+   CONTAINER LOGO - TETAP DI KIRI
+   ================================================================ */
+.app-logo-container {
+    flex: 0 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    order: 0 !important;
+}
+
+/* ================================================================
+   LOGO - UKURAN PROPORSIONAL
+   ================================================================ */
+.jadwal-logo {
+    max-height: clamp(45px, 8vw, 70px) !important;
+    width: auto !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+    display: block !important;
+}
+
+/* ================================================================
+   JUDUL JADWAL - CENTER
+   ================================================================ */
+.jadwal-title {
+    font-size: var(--font-size-xl) !important;
+    font-weight: 800 !important;
+    letter-spacing: 2px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: linear-gradient(135deg, #1565C0, #E65100) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    text-shadow: none !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
+}
+
+/* ================================================================
+   SUBTITLE - CENTER
+   ================================================================ */
+.jadwal-header p {
+    font-size: var(--font-size-xs) !important;
+    color: #5d6d7e !important;
+    font-weight: 600 !important;
+    margin: 2px 0 0 0 !important;
+    padding: 0 !important;
+    line-height: 1.4 !important;
+    text-align: center !important;
+}
+
+/* ================================================================
+   TANGGAL INFO - JADI TEKS SAJA
+   ================================================================ */
+.tanggal-info {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: clamp(4px, 1.2vw, 8px) 0 !important;
+    margin-bottom: clamp(4px, 1vw, 8px) !important;
+    border-radius: 0 !important;
+    font-size: var(--font-size-sm) !important;
+    color: #1565C0 !important;
+    text-align: center !important;
+    font-weight: 700 !important;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* ================================================================
+   RUNNING TEXT - JADI TEKS SAJA
+   ================================================================ */
+.running-text-container {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: clamp(4px, 1.2vw, 8px) 0 !important;
+    margin-bottom: clamp(4px, 1vw, 8px) !important;
+    border-radius: 0 !important;
+    overflow: hidden !important;
+}
+
+.running-text {
+    color: #E65100 !important;
+    font-size: var(--font-size-sm) !important;
+    font-weight: 800 !important;
+    text-align: center !important;
+    letter-spacing: 0.5px !important;
+    animation: running-text-piket 25s linear infinite;
+    white-space: nowrap;
+    padding: 0 !important;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.4) !important;
+    display: inline-block !important;
+}
+
+/* ================================================================
+   SECTION JADWAL - 3D DENGAN WARNA BIRU + ORANGE
+   ================================================================ */
+.jadwal-section {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    padding: clamp(10px, 2vw, 18px) clamp(12px, 2.5vw, 22px) !important;
+    margin-bottom: clamp(6px, 1.2vw, 10px) !important;
+    border-radius: 12px !important;
+    backdrop-filter: blur(8px) !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 
+        0 4px 0 #b0bec5,
+        0 6px 20px rgba(0, 0, 0, 0.06),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.03),
+        inset 0 2px 8px rgba(255, 255, 255, 0.8) !important;
+}
+
+.jadwal-section:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 
+        0 6px 0 #b0bec5,
+        0 10px 30px rgba(0, 0, 0, 0.08),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.03),
+        inset 0 2px 8px rgba(255, 255, 255, 0.9) !important;
+}
+
+/* ================================================================
+   HEADING JADWAL - FONT RESPONSIVE (DIPERBESAR)
+   ================================================================ */
+.jadwal-section h3 {
+    margin: clamp(4px, 1vw, 8px) 0 clamp(6px, 1.5vw, 12px) 0 !important;
+    font-size: var(--font-size-md) !important;
+    font-weight: 700 !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+}
+
+/* ================================================================
+   WARNA LABEL - BIRU + ORANGE
+   ================================================================ */
+.section-title-koramil,
+h3.section-title-koramil {
+    color: #0D47A1 !important;
+    text-shadow: 0 1px 3px rgba(13, 71, 161, 0.15) !important;
+}
+
+.section-title-kediaman,
+h3.section-title-kediaman {
+    color: #E65100 !important;
+    text-shadow: 0 1px 3px rgba(230, 81, 0, 0.15) !important;
+}
+
+.section-title-makodim,
+h3.section-title-makodim {
+    color: #00695C !important;
+    text-shadow: 0 1px 3px rgba(0, 105, 92, 0.15) !important;
+}
+
+/* ================================================================
+   ROW & COL - VERTIKAL (RAPI)
+   ================================================================ */
+.jadwal-section .section-content {
+    display: block !important;
+    width: 100% !important;
+}
+
+.jadwal-section .row {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: clamp(6px, 1.2vw, 10px) !important;
+    margin-top: clamp(4px, 1vw, 8px) !important;
+    align-items: stretch !important;
+}
+
+.jadwal-section .col {
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    text-align: center !important;
+}
+
+/* ================================================================
+   LABEL DROPDOWN - DIPERBESAR & DIPERPANJANG
+   ================================================================ */
+.jadwal-section .col label {
+    font-size: var(--font-size-sm) !important;
+    color: #2c3e50 !important;
+    margin-bottom: clamp(4px, 1vw, 8px) !important;
+    text-align: center !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    display: block !important;
+    width: 100% !important;
+}
+
+.jadwal-section .col label .tanggal-label {
+    font-size: var(--font-size-sm) !important;
+    color: #1565C0 !important;
+    font-weight: 700 !important;
+    display: inline-block !important;
+}
+
+/* ================================================================
+   SELECT DROPDOWN - FONT BESAR & FULL WIDTH
+   ================================================================ */
+.jadwal-section select {
+    width: 100% !important;
+    padding: clamp(14px, 2.5vw, 22px) clamp(16px, 3vw, 26px) !important;
+    
+    /* ----- FONT SANGAT BESAR ----- */
+    font-size: var(--font-size-select) !important;
+    font-weight: 700 !important;
+    
+    border-radius: 12px !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: #1a2a3a !important;
+    border: 2px solid rgba(21, 101, 192, 0.1) !important;
+    box-shadow: 
+        0 4px 0 #b0bec5,
+        inset 0 2px 8px rgba(255, 255, 255, 0.9) !important;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231565C0' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 16px center !important;
+    background-size: 20px !important;
+    padding-right: 44px !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    min-height: clamp(50px, 8vw, 70px) !important;
+}
+
+.jadwal-section select:focus {
+    border-color: #1565C0 !important;
+    box-shadow: 0 0 0 4px rgba(21, 101, 192, 0.1), 0 4px 0 #b0bec5 !important;
+    outline: none !important;
+}
+
+.jadwal-section select:hover {
+    background: rgba(255, 255, 255, 1) !important;
+    transform: translateY(-2px) !important;
+    border-color: #1565C0 !important;
+}
+
+.jadwal-section select option {
+    background: #ffffff !important;
+    color: #1a2a3a !important;
+    padding: clamp(14px, 2vw, 20px) !important;
+    font-size: var(--font-size-select) !important;
+    font-weight: 600 !important;
+    min-height: clamp(45px, 7vw, 60px) !important;
+}
+
+.jadwal-section select option.saved-value {
+    background: #e3f2fd !important;
+    color: #0D47A1 !important;
+    font-weight: 700 !important;
+}
+
+/* ================================================================
+   PREVIEW TEXTAREA - 3D + FONT SANGAT BESAR
+   ================================================================ */
+#j_hasilPesanBaru {
+    width: 100% !important;
+    min-height: clamp(150px, 30vh, 260px) !important;
+    padding: clamp(16px, 2.5vw, 26px) !important;
+    border-radius: 14px !important;
+    border: none !important;
+    
+    /* ----- BACKGROUND GRADIEN BIRU + ORANGE ----- */
+    background: linear-gradient(145deg, #e3f2fd 0%, #fff3e0 50%, #e3f2fd 100%) !important;
+    
+    /* ----- FONT HITAM PEKAT (SAMA BESAR DENGAN DROPDOWN) ----- */
+    color: #000000 !important;
+    font-family: 'Courier New', monospace !important;
+    font-size: var(--font-size-select) !important;
+    font-weight: 700 !important;
+    line-height: clamp(2, 3.5vw, 2.6) !important;
+    
+    /* ----- EFEK 3D ----- */
+    box-shadow: 
+        0 8px 0 #b0bec5,
+        0 12px 40px rgba(0, 0, 0, 0.08),
+        inset 0 -4px 8px rgba(0, 0, 0, 0.03),
+        inset 0 4px 16px rgba(255, 255, 255, 0.9) !important;
+    
+    resize: vertical !important;
+    margin-top: clamp(8px, 1.5vw, 14px) !important;
+    white-space: pre-wrap !important;
+    overflow-y: auto !important;
+    text-align: left !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+}
+
+#j_hasilPesanBaru:focus {
+    outline: none !important;
+    box-shadow: 
+        0 4px 0 #b0bec5,
+        0 16px 50px rgba(0, 0, 0, 0.06),
+        inset 0 -4px 8px rgba(0, 0, 0, 0.02),
+        inset 0 4px 16px rgba(255, 255, 255, 0.9) !important;
+    transform: translateY(-2px) !important;
+}
+
+#j_hasilPesanBaru::placeholder {
+    color: #999999 !important;
+    font-weight: 400 !important;
+}
+
+/* ================================================================
+   SCROLLBAR PREVIEW - MODERN
+   ================================================================ */
+#j_hasilPesanBaru::-webkit-scrollbar {
+    width: clamp(4px, 0.8vw, 8px) !important;
+}
+
+#j_hasilPesanBaru::-webkit-scrollbar-track {
+    background: #e3f2fd !important;
+    border-radius: 4px !important;
+}
+
+#j_hasilPesanBaru::-webkit-scrollbar-thumb {
+    background: #90caf9 !important;
+    border-radius: 4px !important;
+    border: 1px solid #bbdefb !important;
+}
+
+#j_hasilPesanBaru::-webkit-scrollbar-thumb:hover {
+    background: #64b5f6 !important;
+}
+
+/* ================================================================
+   TOMBOL WHATSAPP - FONT SANGAT BESAR & FULL WIDTH
+   ================================================================ */
+.whatsapp-transparent-btn {
+    width: 100% !important;
+    padding: clamp(16px, 3vw, 26px) clamp(20px, 4vw, 34px) !important;
+    font-size: var(--font-size-btn) !important;
+    font-weight: 800 !important;
+    margin: clamp(10px, 2vw, 16px) 0 clamp(6px, 1.2vw, 10px) 0 !important;
+    border-radius: 14px !important;
+    gap: clamp(12px, 2vw, 18px) !important;
+    background: linear-gradient(145deg, #25D366 0%, #128C7E 100%) !important;
+    color: white !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 
+        0 6px 0 #0d6b5e,
+        0 10px 35px rgba(37, 211, 102, 0.2),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.06),
+        inset 0 3px 12px rgba(255, 255, 255, 0.2) !important;
+    min-height: clamp(55px, 9vw, 80px) !important;
+    letter-spacing: 1px !important;
+}
+
+.whatsapp-transparent-btn:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 
+        0 8px 0 #0d6b5e,
+        0 16px 45px rgba(37, 211, 102, 0.3),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.06),
+        inset 0 3px 12px rgba(255, 255, 255, 0.2) !important;
+}
+
+.whatsapp-transparent-btn:active {
+    transform: translateY(6px) scale(0.97) !important;
+    box-shadow: 0 2px 0 #0d6b5e !important;
+}
+
+.whatsapp-transparent-btn i {
+    font-size: clamp(22px, 3.5vw, 30px) !important;
+}
+
+/* ================================================================
+   TOMBOL RIWAYAT - FONT BESAR & FULL WIDTH
+   ================================================================ */
+.btn-riwayat-jadwal {
+    width: 100% !important;
+    padding: clamp(12px, 2vw, 18px) clamp(16px, 3vw, 24px) !important;
+    font-size: var(--font-size-md) !important;
+    font-weight: 700 !important;
+    margin: clamp(6px, 1.2vw, 10px) 0 clamp(8px, 1.5vw, 14px) 0 !important;
+    border-radius: 14px !important;
+    gap: clamp(10px, 1.8vw, 16px) !important;
+    background: linear-gradient(145deg, #1565C0 0%, #0D47A1 100%) !important;
+    color: white !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 
+        0 5px 0 #0a2a5e,
+        0 8px 30px rgba(21, 101, 192, 0.15),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.06),
+        inset 0 2px 8px rgba(255, 255, 255, 0.2) !important;
+    min-height: clamp(45px, 7vw, 65px) !important;
+    letter-spacing: 0.5px !important;
+}
+
+.btn-riwayat-jadwal:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 
+        0 7px 0 #0a2a5e,
+        0 12px 40px rgba(21, 101, 192, 0.25),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.06),
+        inset 0 2px 8px rgba(255, 255, 255, 0.2) !important;
+}
+
+.btn-riwayat-jadwal:active {
+    transform: translateY(5px) scale(0.97) !important;
+    box-shadow: 0 2px 0 #0a2a5e !important;
+}
+
+/* ================================================================
+   PREVIEW STATUS - FONT RESPONSIVE
+   ================================================================ */
+.preview-status {
+    font-size: var(--font-size-xs) !important;
+    margin-top: clamp(4px, 0.8vw, 6px) !important;
+    padding-right: 4px !important;
+    color: #5d6d7e !important;
+    text-align: right !important;
+    font-weight: 600 !important;
+}
+
+.preview-status.loading {
+    color: #E65100 !important;
+}
+
+.preview-status.error {
+    color: #c62828 !important;
+}
+
+.preview-status.success {
+    color: #0D47A1 !important;
+}
+
+/* ================================================================
+   DATA INFO - FONT RESPONSIVE
+   ================================================================ */
+.data-info {
+    font-size: var(--font-size-xs) !important;
+    padding: clamp(4px, 0.8vw, 8px) 0 !important;
+    margin-top: clamp(4px, 0.8vw, 8px) !important;
+    background: transparent !important;
+    color: #5d6d7e !important;
+    text-align: center !important;
+    font-weight: 500 !important;
+}
+
+/* ================================================================
+   LOADING - FONT RESPONSIVE
+   ================================================================ */
+.app-loading {
+    padding: clamp(10px, 2vw, 18px) !important;
+    font-size: var(--font-size-sm) !important;
+    color: #1565C0 !important;
+    text-align: center !important;
+}
+
+.app-loading i {
+    animation: spin-loading 1s linear infinite !important;
+    margin-right: 10px !important;
+}
+
+@keyframes spin-loading {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ================================================================
+   TANGGAL LABEL DI DALAM DROPDOWN
+   ================================================================ */
+.jadwal-section .col label .tanggal-label {
+    color: #1565C0 !important;
+    font-weight: 700 !important;
+    font-size: var(--font-size-sm) !important;
+}
+
+/* ================================================================
+   RESPONSIVE - HP
+   ================================================================ */
+@media (max-width: 600px) {
+    #jadwalPiketContainerBaru {
+        padding: 8px !important;
+    }
+    
+    .jadwal-header {
+        flex-direction: column !important;
+        gap: 6px !important;
+        padding: 8px 10px !important;
+    }
+    
+    .app-logo-container {
+        order: 0 !important;
+    }
+    
+    .jadwal-logo {
+        max-height: clamp(40px, 10vw, 55px) !important;
+    }
+    
+    .jadwal-title {
+        font-size: var(--font-size-lg) !important;
+    }
+    
+    .jadwal-section h3 {
+        font-size: var(--font-size-sm) !important;
+    }
+    
+    .jadwal-section .col label {
+        font-size: clamp(13px, 3vw, 16px) !important;
+    }
+    
+    .jadwal-section select {
+        font-size: clamp(15px, 4vw, 18px) !important;
+        padding: clamp(12px, 2.5vw, 16px) clamp(14px, 3vw, 18px) !important;
+        min-height: clamp(44px, 8vw, 55px) !important;
+    }
+    
+    .jadwal-section select option {
+        font-size: clamp(15px, 4vw, 18px) !important;
+    }
+    
+    #j_hasilPesanBaru {
+        font-size: clamp(15px, 4vw, 18px) !important;
+        min-height: clamp(120px, 25vh, 170px) !important;
+        padding: clamp(12px, 2.5vw, 16px) !important;
+    }
+    
+    .whatsapp-transparent-btn {
+        font-size: clamp(16px, 4vw, 20px) !important;
+        padding: clamp(14px, 3vw, 18px) !important;
+        min-height: clamp(48px, 8vw, 60px) !important;
+    }
+    
+    .whatsapp-transparent-btn i {
+        font-size: clamp(18px, 4vw, 22px) !important;
+    }
+    
+    .btn-riwayat-jadwal {
+        font-size: var(--font-size-sm) !important;
+        padding: clamp(10px, 2vw, 14px) !important;
+        min-height: clamp(40px, 6vw, 50px) !important;
+    }
+    
+    .running-text {
+        font-size: var(--font-size-xs) !important;
+    }
+    
+    .tanggal-info {
+        font-size: var(--font-size-xs) !important;
+    }
+    
+    .jadwal-section .row {
+        gap: clamp(6px, 1.5vw, 10px) !important;
+    }
+}
+
+/* ================================================================
+   RESPONSIVE - TABLET
+   ================================================================ */
+@media (min-width: 601px) and (max-width: 1024px) {
+    #jadwalPiketContainerBaru {
+        padding: 14px !important;
+    }
+    
+    .jadwal-header {
+        gap: 12px !important;
+        padding: 10px 16px !important;
+    }
+    
+    .jadwal-logo {
+        max-height: clamp(45px, 6vw, 60px) !important;
+    }
+    
+    .jadwal-title {
+        font-size: var(--font-size-xl) !important;
+    }
+    
+    .jadwal-section h3 {
+        font-size: var(--font-size-md) !important;
+    }
+    
+    .jadwal-section .col label {
+        font-size: clamp(15px, 3vw, 18px) !important;
+    }
+    
+    .jadwal-section select {
+        font-size: clamp(17px, 3vw, 20px) !important;
+        padding: clamp(14px, 2.5vw, 18px) !important;
+        min-height: clamp(50px, 7vw, 60px) !important;
+    }
+    
+    .jadwal-section select option {
+        font-size: clamp(17px, 3vw, 20px) !important;
+    }
+    
+    #j_hasilPesanBaru {
+        font-size: clamp(17px, 3vw, 20px) !important;
+        min-height: clamp(150px, 25vh, 200px) !important;
+    }
+    
+    .whatsapp-transparent-btn {
+        font-size: clamp(18px, 3.5vw, 22px) !important;
+        padding: clamp(16px, 3vw, 20px) !important;
+        min-height: clamp(52px, 8vw, 68px) !important;
+    }
+}
+
+/* ================================================================
+   RESPONSIVE - DESKTOP
+   ================================================================ */
+@media (min-width: 1025px) {
+    #jadwalPiketContainerBaru {
+        padding: 24px !important;
+    }
+    
+    .jadwal-header {
+        gap: 20px !important;
+        padding: 14px 24px !important;
+    }
+    
+    .jadwal-logo {
+        max-height: clamp(55px, 6vw, 75px) !important;
+    }
+    
+    .jadwal-title {
+        font-size: var(--font-size-xxl) !important;
+    }
+    
+    .jadwal-section h3 {
+        font-size: var(--font-size-lg) !important;
+    }
+    
+    .jadwal-section .col label {
+        font-size: clamp(18px, 3.5vw, 22px) !important;
+    }
+    
+    .jadwal-section select {
+        font-size: clamp(20px, 3.2vw, 26px) !important;
+        padding: clamp(18px, 2.5vw, 26px) clamp(20px, 3vw, 30px) !important;
+        min-height: clamp(60px, 8vw, 80px) !important;
+    }
+    
+    .jadwal-section select option {
+        font-size: clamp(20px, 3.2vw, 26px) !important;
+        padding: clamp(16px, 2vw, 22px) !important;
+    }
+    
+    #j_hasilPesanBaru {
+        font-size: clamp(20px, 3.2vw, 26px) !important;
+        min-height: clamp(220px, 30vh, 300px) !important;
+        padding: clamp(20px, 2.5vw, 30px) !important;
+    }
+    
+    .whatsapp-transparent-btn {
+        font-size: clamp(22px, 3.8vw, 30px) !important;
+        padding: clamp(20px, 3vw, 28px) !important;
+        min-height: clamp(65px, 8vw, 85px) !important;
+    }
+    
+    .whatsapp-transparent-btn i {
+        font-size: clamp(24px, 3.5vw, 32px) !important;
+    }
+    
+    .btn-riwayat-jadwal {
+        font-size: var(--font-size-md) !important;
+        padding: clamp(14px, 2vw, 20px) !important;
+        min-height: clamp(50px, 6vw, 65px) !important;
+    }
+}
+
+/* ================================================================
+   ANIMASI RUNNING TEXT
+   ================================================================ */
+@keyframes running-text-piket {
+    0% { 
+        transform: translateX(100%); 
+        opacity: 0; 
+    }
+    5% { 
+        opacity: 1; 
+    }
+    95% { 
+        opacity: 1; 
+    }
+    100% { 
+        transform: translateX(-100%); 
+        opacity: 0; 
+    }
+}
+
+/* ================================================================
+   ANIMASI FADE IN
+   ================================================================ */
+@keyframes fadeInUp {
+    from { 
+        opacity: 0; 
+        transform: translateY(10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.jadwal-section {
+    animation: fadeInUp 0.4s ease forwards;
+}
+
+.jadwal-section:nth-child(2) { animation-delay: 0.05s; }
+.jadwal-section:nth-child(3) { animation-delay: 0.1s; }
+.jadwal-section:nth-child(4) { animation-delay: 0.15s; }
+
+/* ================================================================
+   SUPER POWER CENTER - SEMUA LABEL TENGAH
+   ================================================================ */
+.jadwal-section,
+.jadwal-section *,
+.jadwal-section h3,
+.jadwal-section p,
+.jadwal-section div,
+.jadwal-section span,
+.jadwal-section label,
+.jadwal-section li,
+.section-title-koramil,
+.section-title-kediaman,
+.section-title-makodim {
+    text-align: center !important;
+}
+
+/* ================================================================
+   GLOW EFFECTS - BIRU + ORANGE
+   ================================================================ */
+.glow-blue {
+    box-shadow: 0 0 30px rgba(21, 101, 192, 0.04) !important;
+}
+
+.glow-orange {
+    box-shadow: 0 0 30px rgba(230, 81, 0, 0.04) !important;
+}
+
+/* ================================================================
+   DARK MODE - TETAP TERANG
+   ================================================================ */
+@media (prefers-color-scheme: dark) {
+    #jadwalPiketContainerBaru {
+        background: linear-gradient(145deg, #1a2a4a 0%, #2a1a0a 50%, #1a2a4a 100%) !important;
+    }
+    
+    .jadwal-header {
+        border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent) !important;
+    }
+    
+    .jadwal-header p {
+        color: #8899aa !important;
+    }
+    
+    .jadwal-section {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)) !important;
+        border-color: rgba(255, 255, 255, 0.05) !important;
+    }
+    
+    .jadwal-section select {
+        background: rgba(255, 255, 255, 0.9) !important;
+        color: #1a2a3a !important;
+    }
+    
+    .jadwal-section .col label {
+        color: #c8d6e5 !important;
+    }
+    
+    .tanggal-info {
+        color: #64b5f6 !important;
+    }
+    
+    .running-text {
+        color: #ffa726 !important;
+    }
+    
+    #j_hasilPesanBaru {
+        background: linear-gradient(145deg, #e3f2fd 0%, #fff3e0 50%, #e3f2fd 100%) !important;
+        color: #000000 !important;
+    }
+    
+    .section-title-koramil,
+    h3.section-title-koramil {
+        color: #64b5f6 !important;
+    }
+    
+    .section-title-kediaman,
+    h3.section-title-kediaman {
+        color: #ffa726 !important;
+    }
+    
+    .section-title-makodim,
+    h3.section-title-makodim {
+        color: #4db6ac !important;
+    }
+    
+    .data-info {
+        color: #8899aa !important;
+    }
+    
+    .preview-status {
+        color: #8899aa !important;
+    }
+}
+
+/* ================================================================
+   HEADER JADWAL - PREMIUM (PASTIKAN TEXT CENTER)
+   ================================================================ */
+.jadwal-header {
+    text-align: center !important;
+}
+
+/* ================================================================
+   HILANGKAN BORDER/BOX-SHADOW BERLEBIH PADA ELEMEN TERTENTU
+   ================================================================ */
+.running-text-container,
+.tanggal-info {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* ================================================================
+   PERBAIKI ANIMASI RUNNING TEXT
+   ================================================================ */
+.running-text-container {
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    position: relative !important;
+}
+
+.running-text {
+    display: inline-block !important;
+    white-space: nowrap !important;
+    animation: running-text-piket 25s linear infinite !important;
+}
+
+/* ================================================================
+   JADWAL HEADER - FIX FLEX UNTUK LOGO KIRI
+   ================================================================ */
+.jadwal-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 15px !important;
+    flex-wrap: wrap !important;
+}
+
+.jadwal-header .app-logo-container {
+    flex: 0 0 auto !important;
+    order: 0 !important;
+}
+
+.jadwal-header > div:last-child {
+    flex: 1 1 auto !important;
+    text-align: center !important;
+}
+
+/* ===== End of jadwal.css ===== */

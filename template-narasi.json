@@ -1,0 +1,200 @@
+{
+  "templates": {
+    "📡 MONITORING UMUM": [
+      "melaksanakan monitoring wilayah binaan di ...... bersama ...... Situasi kamtibmas aman dan kondusif.",
+      "melaksanakan patroli rutin di wilayah ...... bersama ...... Hasil patroli tidak ditemukan gangguan kamtibmas.",
+      "melaksanakan pemantauan situasi di Kantor Desa ...... bersama ...... Masyarakat menyambut baik kehadiran aparat.",
+      "melaksanakan pengecekan kamtibmas di Balai Banjar ...... bersama ...... Situasi terpantau aman terkendali.",
+      "melaksanakan pengawasan aktivitas warga di Aula Pertemuan ...... bersama ...... Tidak ditemukan potensi gangguan."
+    ],
+    "🌊 MONITORING BENCANA": [
+      "melaksanakan monitoring titik rawan longsor di ...... bersama ...... Kondisi tanah masih aman, tetap waspada.",
+      "melaksanakan patroli daerah rawan banjir di ...... bersama ...... Debit air sungai dalam batas normal.",
+      "melaksanakan pemantauan tebing rawan longsor di ...... bersama ...... Tidak ditemukan retakan tanah baru.",
+      "melaksanakan pengecekan tanggul sungai di ...... bersama ...... Infrastruktur dalam kondisi baik dan aman.",
+      "melaksanakan monitoring wilayah pasca hujan deras di Kantor Desa ...... bersama ...... Tidak ada kerusakan infrastruktur."
+    ],
+    "🌾 MONITORING PERTANIAN": [
+      "melaksanakan monitoring tanaman padi di Subak ...... bersama ...... Tanaman sehat, siap panen dalam ...... minggu.",
+      "melaksanakan patroli irigasi pertanian di ...... bersama ...... Air mengalir lancar ke lahan sawah.",
+      "melaksanakan pemantauan dampak cuaca ekstrem di Subak ...... bersama ...... Tanaman padi masih aman terkendali.",
+      "melaksanakan pengecekan hama tanaman di ...... bersama ...... Tidak ditemukan serangan hama signifikan.",
+      "melaksanakan monitoring ketersediaan air irigasi di Kantor Desa ...... bersama ...... Koordinasi dengan dinas pertanian."
+    ],
+    "🐄 MONITORING TERNAK & KESEHATAN HEWAN": [
+      "melaksanakan monitoring kesehatan ternak sapi di ...... bersama ...... Semua ternak dalam kondisi sehat.",
+      "melaksanakan pemeriksaan hewan ternak bersama petugas puskeswan di ...... bersama ...... Ternak bebas dari penyakit PMK.",
+      "melaksanakan pendampingan vaksinasi PMK hewan ternak di ...... bersama ...... ...... ekor ternak berhasil divaksin.",
+      "melaksanakan pemantauan kandang ternak warga di ...... bersama ...... Kebersihan kandang terjaga dengan baik.",
+      "melaksanakan monitoring kesehatan hewan kurban menjelang Idul Adha di ...... bersama ...... Hewan kurban sehat dan layak."
+    ],
+    "🌳 MONITORING PERKEBUNAN": [
+      "melaksanakan monitoring tanaman perkebunan (kelapa sawit/karet/kopi) di ...... bersama ...... Tanaman sehat dan produktif.",
+      "melaksanakan patroli kebun warga di ...... bersama ...... Tidak ditemukan hama atau penyakit tanaman.",
+      "melaksanakan pemantauan hasil panen perkebunan di ...... bersama ...... Hasil panen meningkat ......%.",
+      "melaksanakan pengecekan bibit tanaman perkebunan di ...... bersama ...... Bibit berkualitas dan siap tanam.",
+      "melaksanakan monitoring lahan perkebunan rawan kekeringan di ...... bersama ...... Koordinasi dengan dinas perkebunan."
+    ],
+    "🐟 MONITORING PERIKANAN": [
+      "melaksanakan monitoring tambak ikan/udang di ...... bersama ...... Kualitas air dalam kondisi baik.",
+      "melaksanakan patroli area perikanan budidaya di ...... bersama ...... Ikan sehat dan tidak terkena penyakit.",
+      "melaksanakan pemantauan kolam ikan warga di ...... bersama ...... Panen ikan berhasil dengan hasil melimpah.",
+      "melaksanakan pengecekan kualitas air tambak di ...... bersama ...... pH air normal, ikan aktif bergerak.",
+      "melaksanakan monitoring nelayan di pesisir ...... bersama ...... Hasil tangkapan melimpah, cuaca mendukung."
+    ],
+    "🏗️ MONITORING INFRASTRUKTUR": [
+      "melaksanakan monitoring proyek pembangunan di ...... bersama ...... Progres pembangunan mencapai ......%.",
+      "melaksanakan patroli sarana umum di ...... bersama ...... Fasilitas umum dalam kondisi baik.",
+      "melaksanakan pemantauan jalan desa di ...... bersama ...... Jalan layak dilalui kendaraan.",
+      "melaksanakan pengecekan drainase di ...... bersama ...... Drainase berfungsi normal, tidak tersumbat.",
+      "melaksanakan monitoring jembatan di Kantor Desa ...... bersama ...... Struktur jembatan dalam kondisi aman."
+    ],
+    "🕌 KOMSOS TOKOH AGAMA": [
+      "melaksanakan komsos dengan tokoh agama (Hindu/Islam/Kristen) di ...... bersama ...... Kerukunan umat beragama terjaga.",
+      "melaksanakan silaturahmi ke tokoh agama di Kantor Desa ...... bersama ...... Imbauan waspada bencana disampaikan dengan baik.",
+      "melaksanakan dialog dengan pemangku/ustadz/pendeta di Balai Banjar ...... bersama ...... Tokoh agama siap bersinergi dengan TNI.",
+      "melaksanakan kunjungan ke tempat ibadah di ...... bersama ...... Situasi aman dan kondusif.",
+      "melaksanakan komsos dengan tokoh agama pasca bencana di Aula Pertemuan ...... bersama ...... Tokoh agama membantu tenangankan warga."
+    ],
+    "👥 KOMSOS TOKOH MASYARAKAT": [
+      "melaksanakan komsos dengan tokoh masyarakat di Kantor Desa ...... bersama ...... Tokoh masyarakat mendukung penuh tugas TNI.",
+      "melaksanakan silaturahmi ke Kelian Adat/Banjar di Balai Banjar ...... bersama ...... Hubungan harmonis tetap terjaga.",
+      "melaksanakan dialog dengan tokoh adat di ...... bersama ...... Mitigasi bencana dibahas bersama.",
+      "melaksanakan kunjungan ke rumah tokoh masyarakat di ...... bersama ...... Banyak masukan positif untuk wilayah.",
+      "melaksanakan komsos dengan tokoh adat pasca longsor di Aula Kantor Desa ...... bersama ...... Gotong royong ditingkatkan."
+    ],
+    "🧑🎤 KOMSOS TOKOH PEMUDA": [
+      "melaksanakan komsos dengan pemuda karang taruna di Kantor Desa ...... bersama ...... Pemuda siap menjadi relawan bencana.",
+      "melaksanakan dialog bersama tokoh pemuda di Balai Banjar ...... bersama ...... Semangat kebersamaan tinggi.",
+      "melaksanakan silaturahmi ke kelompok pemuda di Posko Bencana ...... bersama ...... Pemuda antusias ikut pelatihan kebencanaan.",
+      "melaksanakan kunjungan ke posko pemuda di ...... bersama ...... Koordinasi tanggap bencana diperkuat.",
+      "melaksanakan komsos dengan pemuda di Aula Pertemuan ...... bersama ...... Pemuda aktif jaga malam."
+    ],
+    "🏠 KOMSOS WARGA BIASA": [
+      "melaksanakan komsos dengan warga di warung kopi ...... bersama ...... Warga menyampaikan situasi terkini.",
+      "melaksanakan dialog bersama warga di pos ronda ...... bersama ...... Himbauan waspada bencana diberikan.",
+      "melaksanakan silaturahmi ke rumah warga di ...... bersama ...... Babinsa mendengarkan keluhan masyarakat.",
+      "melaksanakan kunjungan ke pemukiman padat di ...... bersama ...... Warga menyambut baik kehadiran TNI.",
+      "melaksanakan komsos bersama warga pasca banjir di Kantor Desa ...... bersama ...... Warga mulai pulih aktivitasnya."
+    ],
+    "🎪 PENGAMANAN KEGIATAN": [
+      "melaksanakan pengamanan lomba 17 Agustusan di Lapangan ...... bersama ...... Kegiatan berjalan lancar dan aman.",
+      "melaksanakan pengamanan pengajian akbar di ...... bersama ...... Tidak ada gangguan kamtibmas.",
+      "melaksanakan pengamanan festival budaya di ...... bersama ...... Antisipasi bencana disiapkan dengan baik.",
+      "melaksanakan pengamanan pasar malam di ...... bersama ...... Jalur evakuasi dipastikan aman.",
+      "melaksanakan pengamanan bazar di Kantor Desa ...... bersama ...... Antrean warga tertib dan aman."
+    ],
+    "🙏 PENGAMANAN ADAT & AGAMA": [
+      "melaksanakan pengamanan upacara adat Ngaben di ...... bersama ...... Prosesi berlangsung khidmat dan aman.",
+      "melaksanakan pengamanan perayaan keagamaan di ...... bersama ...... Umat beribadah dengan tenang.",
+      "melaksanakan pengamanan pawai budaya di ...... bersama ...... Pawai meriah dan kondusif.",
+      "melaksanakan pengamanan upacara Tumpek Landep di Pura ...... bersama ...... Situasi aman terkendali.",
+      "melaksanakan pengamanan odalan di pura ...... bersama ...... Warga yang hadir tertib."
+    ],
+    "⚽ PENGAMANAN OLAHRAGA": [
+      "melaksanakan pengamanan turnamen voli di Lapangan ...... bersama ...... Pertandingan berjalan sportif.",
+      "melaksanakan pengamanan sepak bola di Stadion ...... bersama ...... Tidak ada kericuhan antar suporter.",
+      "melaksanakan pengamanan jalan sehat di ...... bersama ...... Rute aman, peserta antusias.",
+      "melaksanakan pengamanan senam massal di Lapangan Kantor Desa ...... bersama ...... Kegiatan berlangsung meriah dan tertib.",
+      "melaksanakan pengamanan lomba balap karung di ...... bersama ...... Anak-anak gembira dan aman."
+    ],
+    "🚧 PENGAMANAN WILAYAH": [
+      "melaksanakan pengamanan pemungutan suara di Kantor Desa ...... bersama ...... Pilkades/Pemilu berjalan lancar.",
+      "melaksanakan pengamanan rapat terbuka di Aula Kantor Desa ...... bersama ...... Warga tertib menyampaikan aspirasi.",
+      "melaksanakan pengamanan unjuk rasa damai di Halaman Kantor Desa ...... bersama ...... Situasi kondusif, tidak ada anarkis.",
+      "melaksanakan pengamanan pembagian bantuan di Kantor Desa ...... bersama ...... Antrean warga tertib dan aman.",
+      "melaksanakan pengamanan kampanye di Balai Banjar ...... bersama ...... Seluruh peserta tertib."
+    ],
+    "🏥 PENDAMPINGAN KESEHATAN MANUSIA": [
+      "melaksanakan pendampingan Posyandu balita di Kantor Desa ...... bersama ...... Dihadiri ...... balita, semua sehat.",
+      "melaksanakan pendampingan Posyandu lansia di Balai Banjar ...... bersama ...... Lansia mendapat pelayanan kesehatan.",
+      "melaksanakan pendampingan pemeriksaan kesehatan di Aula Pertemuan ...... bersama ...... ...... masyarakat terlayani.",
+      "melaksanakan pendampingan pembagian makanan tambahan di Posko Kesehatan ...... bersama ...... Balita dan ibu hamil terbantu.",
+      "melaksanakan pendampingan imunisasi di Kantor Desa ...... bersama ...... Antusias warga tinggi."
+    ],
+    "🐄 PENDAMPINGAN KESEHATAN HEWAN": [
+      "melaksanakan pendampingan pemeriksaan kesehatan sapi/kambing di ...... bersama ...... Seluruh hewan ternak sehat.",
+      "melaksanakan pendampingan vaksinasi PMK hewan ternak di ...... bersama ...... ...... ekor hewan berhasil divaksin.",
+      "melaksanakan pendampingan pengobatan hewan ternak warga di ...... bersama ...... Hewan yang sakit berhasil disembuhkan.",
+      "melaksanakan pendampingan penyuntikan vitamin hewan ternak di ...... bersama ...... Ternak menjadi lebih bugar dan sehat.",
+      "melaksanakan pendampingan pembersihan kandang ternak warga di ...... bersama ...... Kandang bersih, ternak nyaman."
+    ],
+    "🤲 PENDAMPINGAN SOSIAL & DUKA": [
+      "melaksanakan pendampingan penyaluran sembako di Kantor Desa ...... bersama ...... Bantuan tepat sasaran ke ...... KK.",
+      "melaksanakan anjangsana ke rumah terdampak bencana di ...... bersama ...... Warga termotivasi untuk bangkit.",
+      "melaksanakan pendampingan evakuasi warga di ...... bersama ...... Warga pindah ke tempat aman.",
+      "melaksanakan melayat ke rumah duka warga binaan di ...... bersama ...... Babinsa beri dukungan moral ke keluarga.",
+      "melaksanakan takziah ke rumah warga yang meninggal di ...... bersama ...... Warga terharu dengan kepedulian Babinsa."
+    ],
+    "🌽 PENDAMPINGAN PERTANIAN": [
+      "melaksanakan pendampingan petani tanam padi di Subak ...... bersama ...... Lahan ...... hektar ditanami.",
+      "melaksanakan pendampingan pemulihan lahan pasca banjir di Subak ...... bersama ...... Lahan pulih kembali.",
+      "melaksanakan pendampingan distribusi pupuk di Kantor Desa ...... bersama ...... ...... petani mendapat bantuan.",
+      "melaksanakan pendampingan pelatihan pertanian di Balai Banjar ...... bersama ...... Petani antusias belajar sistem baru.",
+      "melaksanakan pendampingan panen raya di Subak ...... bersama ...... Hasil panen melimpah."
+    ],
+    "🌳 PENDAMPINGAN PERKEBUNAN": [
+      "melaksanakan pendampingan petani kebun kelapa sawit di ...... bersama ...... Lahan ...... hektar siap panen.",
+      "melaksanakan pendampingan penanaman bibit karet/kopi di ...... bersama ...... Bibit berkualitas ditanam di ...... hektar.",
+      "melaksanakan pendampingan pemupukan tanaman perkebunan di ...... bersama ...... Tanaman subur dan produktif.",
+      "melaksanakan pendampingan pengendalian hama kebun di ...... bersama ...... Hama berhasil dikendalikan.",
+      "melaksanakan pendampingan panen hasil perkebunan di ...... bersama ...... Hasil panen meningkat ......%."
+    ],
+    "🐟 PENDAMPINGAN PERIKANAN": [
+      "melaksanakan pendampingan budidaya ikan lele/nila di kolam ...... bersama ...... Ikan sehat dan siap panen.",
+      "melaksanakan pendampingan pembuatan pakan ikan mandiri di ...... bersama ...... Biaya produksi turun ......%.",
+      "melaksanakan pendampingan panen ikan di tambak ...... bersama ...... Hasil panen ...... kg berhasil dikumpulkan.",
+      "melaksanakan pendampingan nelayan melaut di ...... bersama ...... Hasil tangkapan melimpah, cuaca mendukung.",
+      "melaksanakan pendampingan perbaikan jaring dan perahu nelayan di ...... bersama ...... Sarana melaut kembali normal."
+    ],
+    "📚 PENDAMPINGAN PENDIDIKAN": [
+      "melaksanakan pendampingan belajar siswa di SDN ...... ...... bersama ...... Materi kebencanaan disampaikan.",
+      "melaksanakan pendampingan trauma healing anak di Aula Kantor Desa ...... bersama ...... Anak-anak ceria kembali pasca bencana.",
+      "melaksanakan pendampingan kegiatan pramuka di Lapangan Kantor Desa ...... bersama ...... Edukasi siaga bencana diberikan.",
+      "melaksanakan pendampingan perpustakaan desa di Kantor Desa ...... bersama ...... Minat baca anak meningkat.",
+      "melaksanakan pendampingan lomba cerdas cermat di Balai Banjar ...... bersama ...... Siswa antusias belajar."
+    ],
+    "🧹 GOTONG ROYONG LINGKUNGAN": [
+      "melaksanakan gotong royong bersih desa di Kantor Desa ...... bersama ...... warga. Lingkungan bersih dalam ...... jam.",
+      "melaksanakan karya bakti bersih sungai di ...... bersama ...... warga. Sungai kembali mengalir lancar.",
+      "melaksanakan gotong royong bersih pasar di ...... bersama ...... warga. Pasar menjadi bersih dan rapi.",
+      "melaksanakan gotong royong bersih tempat ibadah di ...... bersama ...... warga. Tempat ibadah nyaman kembali.",
+      "melaksanakan gotong royong bersih pesisir di ...... bersama ...... warga. Pantai kembali bersih."
+    ],
+    "🛣️ GOTONG ROYONG INFRASTRUKTUR": [
+      "melaksanakan karya bakti perbaikan jalan di ...... bersama ...... warga. Jalan ...... km berhasil diperbaiki.",
+      "melaksanakan gotong royong pembuatan bronjong di ...... bersama ...... warga. Bronjong ...... meter terpasang.",
+      "melaksanakan gotong royong perbaikan jembatan di ...... bersama ...... warga. Jembatan kembali layak dilalui.",
+      "melaksanakan karya bakti pembuatan tanggul darurat di ...... bersama ...... warga. Tanggul ...... meter selesai.",
+      "melaksanakan gotong royong perbaikan gorong-gorong di Kantor Desa ...... bersama ...... warga. Air mengalir lancar."
+    ],
+    "🚜 GOTONG ROYONG PERTANIAN": [
+      "melaksanakan gotong royong bersih saluran irigasi di Subak ...... bersama ...... petani. Air mengalir ke ...... hektar sawah.",
+      "melaksanakan karya bakti perbaikan jalan tani di Subak ...... bersama ...... petani. Jalan ...... km mulus kembali.",
+      "melaksanakan gotong royong pembuatan terasering di Subak ...... bersama ...... petani. Terasering ...... hektar selesai.",
+      "melaksanakan gotong royong pembersihan lumpur sawah pasca banjir di Subak ...... bersama ...... petani. Lahan siap ditanami.",
+      "melaksanakan gotong royong perbaikan saluran air sawah di Subak ...... bersama ...... petani. Irigasi kembali normal."
+    ],
+    "🌳 GOTONG ROYONG PERKEBUNAN": [
+      "melaksanakan gotong royong pembersihan lahan kebun di ...... bersama ...... petani kebun. Lahan ...... hektar siap tanam.",
+      "melaksanakan karya bakti pembuatan terasering kebun di ...... bersama ...... petani. Terasering ...... hektar selesai.",
+      "melaksanakan gotong royong penanaman bibit perkebunan di ...... bersama ...... petani. ...... bibit tertanam.",
+      "melaksanakan gotong royong pemupukan kebun warga di ...... bersama ...... petani. Kebun menjadi subur.",
+      "melaksanakan gotong royong panen raya perkebunan di ...... bersama ...... petani. Hasil panen melimpah."
+    ],
+    "🐟 GOTONG ROYONG PERIKANAN": [
+      "melaksanakan gotong royong pembersihan tambak/kolam ikan di ...... bersama ...... petani tambak. Kolam siap ditebar bibit.",
+      "melaksanakan karya bakti perbaikan saluran irigasi tambak di ...... bersama ...... petani. Saluran air lancar kembali.",
+      "melaksanakan gotong royong panen ikan bersama di ...... bersama ...... petani. ...... kg ikan berhasil dipanen.",
+      "melaksanakan gotong royong perbaikan jaring nelayan di ...... bersama ...... nelayan. Jaring siap dipakai melaut.",
+      "melaksanakan gotong royong pembersihan pantai untuk nelayan di ...... bersama ...... nelayan. Pantai bersih dan aman."
+    ],
+    "⛑️ GOTONG ROYONG BENCANA": [
+      "melaksanakan gotong royong bersih rumah terdampak longsor di ...... bersama ...... warga. Rumah mulai bersih kembali.",
+      "melaksanakan karya bakti evakuasi lumpur banjir di ...... bersama ...... warga. Lumpur berhasil dibersihkan.",
+      "melaksanakan gotong royong pembangunan dapur umum di Kantor Desa ...... bersama ...... warga. Dapur umum beroperasi.",
+      "melaksanakan gotong royong pembersihan fasilitas umum pasca bencana di Kantor Desa ...... bersama ...... warga. Fasilitas kembali normal.",
+      "melaksanakan gotong royong perbaikan rumah rusak di ...... bersama ...... warga. Rumah layak huni kembali."
+    ]
+  }
+}

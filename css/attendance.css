@@ -1,0 +1,328 @@
+/* ================================================================
+   ATTENDANCE.CSS - ABSENSI
+   ================================================================ */
+
+#attendancePanel {
+    margin-top: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.attendance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.attendance-header button {
+    margin: 0;
+    padding: 8px 16px;
+    background: rgba(255, 50, 50, 0.08);
+    border: 1px solid rgba(255, 50, 50, 0.1);
+    border-radius: 8px;
+    color: #ff6b6b;
+    font-size: 12px;
+    width: auto;
+    cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .attendance-header button:hover {
+        background: rgba(255, 50, 50, 0.15);
+    }
+
+    .btn-close-3d {
+        position: relative;
+        background: linear-gradient(145deg, #ff5c5c, #ff2a2a);
+        color: #ffffff;
+        border: none;
+        border-radius: 10px;
+        padding: 6px 12px;
+        font-weight: 800;
+        letter-spacing: 0.4px;
+        box-shadow: 0 6px 0 rgba(180, 20, 20, 0.36), 0 14px 24px rgba(0, 0, 0, 0.22), inset 0 -5px 10px rgba(0,0,0,0.06);
+        transform: translateY(-1px);
+    }
+
+    .btn-close-3d::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 12px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, transparent 60%);
+        pointer-events: none;
+    }
+
+    .btn-close-3d:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 0 rgba(180, 20, 20, 0.35), 0 24px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-close-3d:active {
+        transform: translateY(1px);
+        box-shadow: 0 4px 0 rgba(180, 20, 20, 0.35), 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-attendance {
+        position: relative;
+        background: linear-gradient(145deg, #4CAF50, #2d6a2d);
+        color: #ffffff;
+        border: none;
+        border-radius: 12px;
+        padding: 8px 14px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        box-shadow: 0 8px 0 rgba(29, 83, 33, 0.36), 0 16px 28px rgba(0, 0, 0, 0.25), inset 0 -6px 12px rgba(0,0,0,0.12);
+        transition: transform 0.22s cubic-bezier(.2,.9,.3,1), box-shadow 0.22s ease;
+    }
+
+    .btn-attendance:hover:not(:disabled) {
+        transform: translateY(-4px);
+        box-shadow: 0 14px 0 rgba(29, 83, 33, 0.36), 0 28px 44px rgba(0, 0, 0, 0.32), inset 0 -8px 14px rgba(0,0,0,0.14);
+    }
+
+    .btn-compact { padding: 6px 10px !important; font-size: 12px !important; }
+
+    .btn-attendance:disabled {
+        opacity: 0.55;
+        background: rgba(76, 175, 80, 0.2);
+        box-shadow: none;
+        cursor: not-allowed;
+    }
+
+    .attendance-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .attendance-selected-desa {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 14px;
+        font-weight: 700;
+        color: #ffffff;
+        padding: 0;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        margin-bottom: 0;
+    }
+
+    .attendance-selected-desa span {
+        color: #a8ffab;
+    }
+
+    .attendance-filters input {
+        flex: 1;
+        min-width: 120px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        background: rgba(0, 0, 0, 0.2);
+        color: #ddeedd;
+        font-size: 12px;
+    }
+
+.attendance-summary {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    font-size: 13px;
+}
+
+.summary-row span:last-child {
+    font-weight: 600;
+    color: #FFD700;
+}
+
+.progress-container {
+    background: rgba(255, 255, 255, 0.04);
+    height: 12px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    padding: 6px;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #8bc34a);
+    transition: width 0.6s ease;
+    border-radius: 10px;
+}
+
+
+/* Footer army gif */
+/* splash army gif styles */
+.splash-army img#splashArmyGif {
+    max-width: 320px;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.desa-card {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    border-left: 3px solid #4CAF50;
+    transition: all 0.3s ease;
+}
+
+.desa-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.desa-card.incomplete {
+    border-left-color: #FF9800;
+}
+
+/* File item details */
+.file-item .file-name {
+    color: #ffffff;
+    margin-bottom: 6px;
+}
+
+.file-meta {
+    font-size: 12px;
+    color: #a8ffab;
+    margin-top: 2px;
+}
+
+.file-zip {
+    color: #4dff4d;
+    margin-top: 6px;
+    font-weight: 700;
+}
+
+/* Clickable wrapper for month picker */
+.month-picker-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    border-radius: 60px;
+    padding: 6px 10px; /* larger clickable area */
+    cursor: pointer;
+    background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    box-shadow:
+        0 10px 30px -8px rgba(0,0,0,0.45),
+        0 6px 0 rgba(0,0,0,0.22),
+        0 8px 0 rgba(0,0,0,0.12),
+        inset 0 -6px 12px rgba(0,0,0,0.25),
+        inset 0 6px 12px rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.04);
+}
+
+.month-picker-area input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 6px 8px;
+    pointer-events: auto; /* allow native input interactions */
+}
+
+/* Static 3D style for the month picker (no animation/transform) */
+#attendanceMonthFilter {
+    border-radius: 60px;
+    padding: 10px 18px;
+    background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-shadow:
+        0 1px 0 rgba(255,255,255,0.12),
+        0 2px 0 rgba(255,255,255,0.04),
+        0 3px 0 rgba(0,0,0,0.05);
+    box-shadow:
+        0 10px 30px -8px rgba(0,0,0,0.45),
+        0 6px 0 rgba(0,0,0,0.22),
+        0 8px 0 rgba(0,0,0,0.12),
+        inset 0 -6px 12px rgba(0,0,0,0.25),
+        inset 0 6px 12px rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.04);
+    cursor: pointer;
+    transition: none !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    will-change: auto !important;
+}
+
+/* Ensure no hover/focus animation overrides */
+#attendanceMonthFilter:hover,
+#attendanceMonthFilter:focus {
+    box-shadow:
+        0 10px 30px -8px rgba(0,0,0,0.45),
+        0 6px 0 rgba(0,0,0,0.22),
+        0 8px 0 rgba(0,0,0,0.12),
+        inset 0 -6px 12px rgba(0,0,0,0.25),
+        inset 0 6px 12px rgba(255,255,255,0.03);
+    outline: none !important;
+    transition: none !important;
+}
+
+.desa-header {
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.desa-name {
+    font-weight: 600;
+    color: #b2d8b2;
+    font-size: 14px;
+}
+
+.desa-count {
+    background: #ffffff; /* white box */
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #000000; /* black bold text */
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+.desa-files {
+    padding: 8px 14px 14px 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.file-link {
+    color: #4CAF50;
+    text-decoration: none;
+    font-size: 12px;
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.file-link:hover {
+    background: rgba(76, 175, 80, 0.05);
+}

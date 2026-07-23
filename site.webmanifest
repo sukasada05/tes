@@ -1,0 +1,51 @@
+{
+  "name": "DUKOPS BABINSA",
+  "short_name": "DUKOPS",
+  "description": "Sistem Pelaporan Babinsa Koramil Sukasada",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#0a1a3a",
+  "background_color": "#202624",
+  "orientation": "portrait",
+  "lang": "id",
+  "scope": ".",
+  "icons": [
+    {
+      "src": "icons/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "display_override": ["standalone", "fullscreen"],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Lihat Jadwal",
+      "url": "./",
+      "description": "Buka halaman utama DUKOPS",
+      "icons": [
+        {
+          "src": "icons/favicon-96x96.png",
+          "type": "image/png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "categories": ["social", "productivity"]
+}
