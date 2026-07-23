@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DUKOPS - SISTEM PELAPORAN</title>
     <style>
+        /* --- Windows 98 Ultra Classic --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #008080;
-            color: #000;
             padding: 8px;
+            font-family: 'Times New Roman', 'Courier New', 'MS Sans Serif', 'Tahoma', 'Arial', sans-serif;
+            color: #000;
             min-height: 100vh;
         }
         .container {
@@ -26,8 +27,6 @@
             border-color: #ffffff #808080 #808080 #ffffff;
             box-shadow: inset 1px 1px 0 #dfdfdf;
         }
-
-        /* ========== TITLE BAR ========== */
         .window-title {
             background: #000080;
             color: #fff;
@@ -40,6 +39,7 @@
             margin-bottom: 8px;
             cursor: default;
             letter-spacing: 0.5px;
+            font-family: 'Times New Roman', 'Courier New', 'MS Sans Serif', sans-serif;
         }
         .window-title span {
             display: flex;
@@ -56,12 +56,11 @@
             font-weight: bold;
             cursor: pointer;
             line-height: 16px;
+            font-family: 'Times New Roman', 'Courier New', sans-serif;
         }
         .window-title .btn-close:active {
             border-color: #808080 #ffffff #ffffff #808080;
         }
-
-        /* ========== NAVIGASI ========== */
         .nav-buttons {
             display: flex;
             gap: 4px;
@@ -84,7 +83,7 @@
             font-size: 12px;
             text-align: center;
             min-width: 50px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Times New Roman', 'Courier New', 'MS Sans Serif', sans-serif;
         }
         .nav-btn:active {
             border-color: #808080 #ffffff #ffffff #808080;
@@ -93,8 +92,6 @@
             border-color: #808080 #ffffff #ffffff #808080;
             background: #d0d0d0;
         }
-
-        /* ========== FORM ELEMEN ========== */
         .field-group {
             margin-bottom: 6px;
             padding: 4px;
@@ -108,6 +105,7 @@
             font-size: 12px;
             color: #000;
             margin-bottom: 2px;
+            font-family: 'Times New Roman', 'Courier New', sans-serif;
         }
         select,
         input[type="file"],
@@ -120,7 +118,7 @@
             background: #ffffff;
             color: #000;
             font-size: 13px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Times New Roman', 'Courier New', 'MS Sans Serif', sans-serif;
         }
         select:focus,
         input:focus,
@@ -142,9 +140,8 @@
             font-size: 12px;
             color: #000;
             word-break: break-all;
+            font-family: 'Times New Roman', 'Courier New', sans-serif;
         }
-
-        /* ========== CANVAS ========== */
         canvas {
             width: 100%;
             border: 2px solid;
@@ -153,8 +150,6 @@
             background: #000;
             display: block;
         }
-
-        /* ========== TOMBOL ========== */
         .action-buttons {
             display: flex;
             gap: 6px;
@@ -171,7 +166,7 @@
             font-weight: bold;
             font-size: 13px;
             cursor: pointer;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Times New Roman', 'Courier New', 'MS Sans Serif', sans-serif;
             min-width: 70px;
         }
         .action-buttons button:active {
@@ -181,34 +176,12 @@
             opacity: 0.5;
             cursor: not-allowed;
         }
-        #submitBtn {
-            background: #c0c0c0;
-        }
-        #resetBtn {
-            background: #c0c0c0;
-        }
-
-        /* ========== JADWAL PIKET ========== */
         .jadwal-section {
             background: #c0c0c0;
             border: 2px solid;
             border-color: #ffffff #808080 #808080 #ffffff;
             padding: 6px;
             margin-bottom: 6px;
-        }
-        .section-content .row {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            margin: 4px 0;
-        }
-        .section-content .col {
-            width: 100%;
-        }
-        .section-content select {
-            font-size: 12px;
-            padding: 3px 4px;
-            width: 100%;
         }
         .section-title {
             font-weight: bold;
@@ -224,25 +197,7 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 4px;
-        }
-        .section-title .date-label {
-            font-weight: normal;
-            font-size: 11px;
-            color: #000;
-            background: #c0c0c0;
-            padding: 0 6px;
-            border: 1px solid;
-            border-color: #ffffff #808080 #808080 #ffffff;
-        }
-        .section-title .date-label-hari-ini {
-            background: #e8f0e8;
-            border-color: #008000 #4a7a4a #4a7a4a #008000;
-            color: #004400;
-        }
-        .section-title .date-label-besok {
-            background: #f0e8e0;
-            border-color: #8a6a2a #6a4a1a #6a4a1a #8a6a2a;
-            color: #664400;
+            font-family: 'Times New Roman', 'Courier New', sans-serif;
         }
         .section-divider {
             border-top: 1px dashed #808080;
@@ -265,6 +220,7 @@
             font-size: 11px;
             display: block;
             margin-bottom: 2px;
+            font-family: 'Times New Roman', 'Courier New', sans-serif;
         }
         .group-box-hari-ini label {
             color: #004400;
@@ -282,14 +238,12 @@
             font-weight: bold;
             cursor: pointer;
             margin: 4px 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Times New Roman', 'Courier New', 'MS Sans Serif', sans-serif;
             font-size: 13px;
         }
         .whatsapp-btn:active {
             border-color: #808080 #ffffff #ffffff #808080;
         }
-
-        /* ========== HANPANGAN IFRAME ========== */
         #hanpanganContent iframe {
             width: 100%;
             height: 450px;
@@ -302,38 +256,18 @@
                 height: 350px;
             }
         }
-
-        /* ========== SUPABASE INDICATOR ========== */
-        .supabase-indicator {
-            position: fixed;
-            top: 6px;
-            right: 6px;
-            z-index: 999;
-            width: 12px;
-            height: 12px;
-            cursor: default;
+        .status-bar {
+            background: #c0c0c0;
+            padding: 2px 6px;
+            border: 1px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            font-size: 11px;
+            color: #000;
+            margin-top: 4px;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Times New Roman', 'Courier New', sans-serif;
         }
-        .indicator-dot {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 1px solid #000;
-            transition: background 0.3s;
-        }
-        .indicator-online .indicator-dot {
-            background: #00aa00;
-        }
-        .indicator-offline .indicator-dot {
-            background: #ff0000;
-        }
-        .indicator-checking .indicator-dot {
-            background: #ffcc00;
-        }
-        .indicator-tooltip {
-            display: none;
-        }
-
-        /* ========== NOTIFIKASI ========== */
         .notification {
             position: fixed;
             bottom: 20px;
@@ -349,7 +283,7 @@
             max-width: 90%;
             text-align: center;
             font-size: 13px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Times New Roman', 'Courier New', sans-serif;
         }
         .notification.success {
             background: #ccffcc;
@@ -360,8 +294,6 @@
         .notification.warning {
             background: #ffffcc;
         }
-
-        /* ========== MODAL AI ========== */
         .modal-ai {
             display: none;
             position: fixed;
@@ -399,6 +331,7 @@
             font-size: 14px;
             margin: 0;
             color: #000;
+            font-family: 'Times New Roman', 'Courier New', sans-serif;
         }
         .modal-close {
             background: #c0c0c0;
@@ -409,20 +342,10 @@
             cursor: pointer;
             padding: 0 8px;
             line-height: 20px;
+            font-family: 'Times New Roman', 'Courier New', sans-serif;
         }
         .modal-close:active {
             border-color: #808080 #ffffff #ffffff #808080;
-        }
-        .modal-ai-tabs {
-            margin-bottom: 6px;
-        }
-        .modal-ai-tabs select {
-            width: 100%;
-            padding: 4px 6px;
-            border: 2px solid;
-            border-color: #808080 #ffffff #ffffff #808080;
-            background: #ffffff;
-            color: #000;
         }
         .modal-ai-body {
             max-height: 50vh;
@@ -441,14 +364,14 @@
         .modal-template-text {
             font-size: 12px;
             color: #000;
+            font-family: 'Times New Roman', 'Courier New', sans-serif;
         }
         .loading-templates {
             color: #000;
             text-align: center;
             padding: 20px;
+            font-family: 'Times New Roman', 'Courier New', sans-serif;
         }
-
-        /* ========== UTILITY ========== */
         .hidden {
             display: none !important;
         }
@@ -465,8 +388,6 @@
         .mb-1 {
             margin-bottom: 4px;
         }
-
-        /* ========== COUNTER ========== */
         .counter-value {
             display: inline-block;
             padding: 0 8px;
@@ -476,26 +397,39 @@
             color: #000;
             font-weight: bold;
             font-size: 16px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Times New Roman', 'Courier New', sans-serif;
         }
         .counter-value::before {
             content: '📊 ';
         }
-
-        /* ========== STATUS BAR ========== */
-        .status-bar {
-            background: #c0c0c0;
-            padding: 2px 6px;
-            border: 1px solid;
-            border-color: #808080 #ffffff #ffffff #808080;
-            font-size: 11px;
-            color: #000;
-            margin-top: 4px;
-            display: flex;
-            justify-content: space-between;
+        .supabase-indicator {
+            position: fixed;
+            top: 6px;
+            right: 6px;
+            z-index: 999;
+            width: 12px;
+            height: 12px;
+            cursor: default;
         }
-
-        /* ========== RESPONSIF ========== */
+        .indicator-dot {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 1px solid #000;
+            transition: background 0.3s;
+        }
+        .indicator-online .indicator-dot {
+            background: #00aa00;
+        }
+        .indicator-offline .indicator-dot {
+            background: #ff0000;
+        }
+        .indicator-checking .indicator-dot {
+            background: #ffcc00;
+        }
+        .indicator-tooltip {
+            display: none;
+        }
         @media (max-width: 480px) {
             .container {
                 padding: 4px;
@@ -538,29 +472,29 @@
 </head>
 <body>
 
-    <!-- ===== SUPABASE INDICATOR ===== -->
+    <!-- Supabase Indicator -->
     <div id="supabaseIndicator" class="supabase-indicator indicator-checking">
         <div class="indicator-dot"></div>
         <span class="indicator-tooltip">Menghubungkan...</span>
     </div>
 
-    <!-- ===== APLIKASI UTAMA ===== -->
+    <!-- Main App -->
     <div id="appContainer" class="container">
 
-        <!-- ===== WINDOW TITLE ===== -->
+        <!-- Title Bar -->
         <div class="window-title">
             <span>📋 DUKOPS - SISTEM PELAPORAN</span>
             <button class="btn-close" onclick="if(confirm('Tutup aplikasi?')){document.body.innerHTML='';}">✕</button>
         </div>
 
-        <!-- ===== NAVIGASI ===== -->
+        <!-- Nav -->
         <div class="nav-buttons">
             <button class="nav-btn active" id="btnDukops" onclick="showDukops()">📝 DUKOPS</button>
             <button class="nav-btn" id="btnJadwal" onclick="showJadwalPiketBaru()">📅 PIKET</button>
             <button class="nav-btn" id="btnHanpangan" onclick="showHanpangan()">🌾 HANPANGAN</button>
         </div>
 
-        <!-- ===== DUKOPS CONTENT ===== -->
+        <!-- DUKOPS -->
         <div id="dukopsContent">
             <div class="field-group">
                 <label>📍 Pilih Desa/Kelurahan:</label>
@@ -609,24 +543,22 @@
             </div>
         </div>
 
-        <!-- ===== JADWAL PIKET ===== -->
+        <!-- JADWAL PIKET -->
         <div id="jadwalPiketContainerBaru" style="display:none;">
             <div class="jadwal-section">
                 <div class="section-title">📅 JADWAL PIKET</div>
 
-                <!-- Piket Koramil -->
+                <!-- Koramil -->
                 <div class="section-title">
                     🏛️ Piket Koramil
-                    <span class="date-label date-label-hari-ini" id="labelKoramilHariIni">Hari Ini: --</span>
-                    <span class="date-label date-label-besok" id="labelKoramilBesok">Besok: --</span>
                 </div>
                 <div class="group-box group-box-hari-ini">
-                    <label>📌 HARI INI</label>
+                    <label id="labelHariIniKoramil">📌 HARI INI</label>
                     <select id="j_nama1a_baru" style="width:100%;margin-bottom:2px;"><option value="">Nama 1</option></select>
                     <select id="j_nama1b_baru" style="width:100%;"><option value="">Nama 2</option></select>
                 </div>
                 <div class="group-box group-box-besok">
-                    <label>📌 BESOK</label>
+                    <label id="labelBesokKoramil">📌 BESOK</label>
                     <select id="j_nama2a_baru" style="width:100%;margin-bottom:2px;"><option value="">Nama 1</option></select>
                     <select id="j_nama2b_baru" style="width:100%;"><option value="">Nama 2</option></select>
                 </div>
@@ -636,16 +568,14 @@
                 <!-- Kediaman -->
                 <div class="section-title">
                     🏠 Jaga Kediaman
-                    <span class="date-label date-label-hari-ini" id="labelKediamanHariIni">Hari Ini: --</span>
-                    <span class="date-label date-label-besok" id="labelKediamanBesok">Besok: --</span>
                 </div>
                 <div class="group-box group-box-hari-ini">
-                    <label>📌 HARI INI</label>
+                    <label id="labelHariIniKediaman">📌 HARI INI</label>
                     <select id="j_nama3a_baru" style="width:100%;margin-bottom:2px;"><option value="">Nama 1</option></select>
                     <select id="j_nama3b_baru" style="width:100%;"><option value="">Nama 2</option></select>
                 </div>
                 <div class="group-box group-box-besok">
-                    <label>📌 BESOK</label>
+                    <label id="labelBesokKediaman">📌 BESOK</label>
                     <select id="j_nama3c_baru" style="width:100%;margin-bottom:2px;"><option value="">Nama 1</option></select>
                     <select id="j_nama3d_baru" style="width:100%;"><option value="">Nama 2</option></select>
                 </div>
@@ -655,16 +585,14 @@
                 <!-- Makodim -->
                 <div class="section-title">
                     🏢 Piket Makodim
-                    <span class="date-label date-label-hari-ini" id="labelMakodimHariIni">Hari Ini: --</span>
-                    <span class="date-label date-label-besok" id="labelMakodimBesok">Besok: --</span>
                 </div>
                 <div class="group-box group-box-hari-ini">
-                    <label>📌 HARI INI</label>
+                    <label id="labelHariIniMakodim">📌 HARI INI</label>
                     <select id="j_nama4a_baru" style="width:100%;margin-bottom:2px;"><option value="">Nama 1</option></select>
                     <select id="j_nama4b_baru" style="width:100%;"><option value="">Nama 2</option></select>
                 </div>
                 <div class="group-box group-box-besok">
-                    <label>📌 BESOK</label>
+                    <label id="labelBesokMakodim">📌 BESOK</label>
                     <select id="j_nama4c_baru" style="width:100%;margin-bottom:2px;"><option value="">Nama 1</option></select>
                     <select id="j_nama4d_baru" style="width:100%;"><option value="">Nama 2</option></select>
                 </div>
@@ -672,23 +600,23 @@
                 <button class="whatsapp-btn" id="whatsappBtnBaru">💬 KIRIM KE WHATSAPP</button>
 
                 <div style="margin-top:4px;">
-                    <textarea id="j_hasilPesanBaru" rows="4" readonly placeholder="Preview pesan..." style="width:100%;padding:4px;border:2px solid;border-color:#808080 #ffffff #ffffff #808080;background:#ffffff;font-size:12px;"></textarea>
+                    <textarea id="j_hasilPesanBaru" rows="4" readonly placeholder="Preview pesan..." style="width:100%;padding:4px;border:2px solid;border-color:#808080 #ffffff #ffffff #808080;background:#ffffff;font-size:12px;font-family:'Times New Roman','Courier New',sans-serif;"></textarea>
                     <div class="text-muted text-center" id="previewInfo" style="font-size:11px;margin-top:2px;">⏳ Memuat data dari Supabase...</div>
                 </div>
             </div>
         </div>
 
-        <!-- ===== HANPANGAN ===== -->
+        <!-- HANPANGAN -->
         <div id="hanpanganContent" style="display:none;">
             <div class="field-group" style="padding:4px;">
-                <div style="font-weight:bold;font-size:13px;margin-bottom:4px;">🌾 HANPANGAN</div>
+                <div style="font-weight:bold;font-size:13px;margin-bottom:4px;font-family:'Times New Roman','Courier New',sans-serif;">🌾 HANPANGAN</div>
                 <iframe src="https://sukasada05.github.io/Hanpangan/" title="HANPANGAN"></iframe>
             </div>
         </div>
 
     </div>
 
-    <!-- ===== MODAL AI ===== -->
+    <!-- Modal AI -->
     <div id="templateModal" class="modal-ai">
         <div class="modal-ai-content">
             <div class="modal-ai-header">
@@ -700,7 +628,7 @@
         </div>
     </div>
 
-    <!-- ===== JS ===== -->
+    <!-- JS Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -776,28 +704,25 @@
 
             const formatDate = (date) => {
                 const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
-                const months = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
-                return days[date.getDay()] + ", " + date.getDate() + " " + months[date.getMonth()] + " " + date
-                .getFullYear();
+                const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+                return days[date.getDay()] + ", " + date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
             };
 
-            const hariIni = formatDate(now);
-            const besok = formatDate(tomorrow);
+            const hariIni = "📌 HARI INI : " + formatDate(now);
+            const besok = "📌 BESOK : " + formatDate(tomorrow);
 
-            const labels = [
-                'labelKoramilHariIni', 'labelKediamanHariIni', 'labelMakodimHariIni'
+            // Update label di dalam group box (bawah) - untuk setiap bagian
+            const labelGroups = [
+                { hari: 'labelHariIniKoramil', besok: 'labelBesokKoramil' },
+                { hari: 'labelHariIniKediaman', besok: 'labelBesokKediaman' },
+                { hari: 'labelHariIniMakodim', besok: 'labelBesokMakodim' }
             ];
-            labels.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.textContent = 'Hari Ini: ' + hariIni;
-            });
 
-            const labelsBesok = [
-                'labelKoramilBesok', 'labelKediamanBesok', 'labelMakodimBesok'
-            ];
-            labelsBesok.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.textContent = 'Besok: ' + besok;
+            labelGroups.forEach(group => {
+                const hariEl = document.getElementById(group.hari);
+                if (hariEl) hariEl.textContent = hariIni;
+                const besokEl = document.getElementById(group.besok);
+                if (besokEl) besokEl.textContent = besok;
             });
         }
 
@@ -947,11 +872,6 @@
             const previewDesa = document.getElementById('previewDesa');
             previewDesa.textContent = desaInfo.cleanName;
             previewDesa.style.display = 'block';
-
-            const fotoLabel = document.getElementById('labelFotoKegiatan');
-            if (fotoLabel) {
-                fotoLabel.innerHTML = `📷 Foto Kegiatan: ${desaInfo.cleanName}`;
-            }
 
             const loading = document.getElementById('loadingKoordinat');
             loading.classList.remove('hidden');
@@ -1118,7 +1038,7 @@
 
             if (selectedDesa || currentKoordinat || tanggalWaktu) {
                 ctx.textAlign = "right";
-                ctx.font = "36px Arial";
+                ctx.font = "36px Times New Roman";
                 const bottomMargin = 20;
                 const lineHeight = 40;
                 const rightMargin = 10;
@@ -1363,7 +1283,7 @@
             modal.style.cssText =
                 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:99999;';
             modal.innerHTML = `
-                <div style="background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;padding:20px;max-width:400px;width:90%;text-align:center;">
+                <div style="background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;padding:20px;max-width:400px;width:90%;text-align:center;font-family:'Times New Roman','Courier New',sans-serif;">
                     <div style="font-size:48px;color:#008000;margin-bottom:12px;">🏆</div>
                     <h2 style="color:#000;margin-bottom:10px;">🎉 SELAMAT!</h2>
                     <p style="color:#000;font-size:15px;">
@@ -1373,7 +1293,7 @@
                     <div style="background:#d0d0d0;border:1px solid #808080;padding:8px;margin:12px 0;color:#000;">
                         ✅ Target 9 laporan per bulan TERCAPAI!
                     </div>
-                    <button onclick="this.closest('.thankyou-popup').remove()" style="background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;padding:6px 20px;font-weight:bold;cursor:pointer;width:100%;font-size:14px;">
+                    <button onclick="this.closest('.thankyou-popup').remove()" style="background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;padding:6px 20px;font-weight:bold;cursor:pointer;width:100%;font-size:14px;font-family:'Times New Roman','Courier New',sans-serif;">
                         👍 TERIMA KASIH
                     </button>
                 </div>
@@ -1494,7 +1414,7 @@
             selectWrapper.style.cssText = 'width:100%;margin-bottom:6px;';
             const selectElement = document.createElement('select');
             selectElement.style.cssText =
-                'width:100%;padding:3px 4px;border:2px solid;border-color:#808080 #ffffff #ffffff #808080;background:#ffffff;';
+                'width:100%;padding:3px 4px;border:2px solid;border-color:#808080 #ffffff #ffffff #808080;background:#ffffff;font-family:"Times New Roman","Courier New",sans-serif;';
             categoryKeys.forEach(key => {
                 const option = document.createElement('option');
                 option.value = key;
@@ -1529,7 +1449,7 @@
                 const displayTemplate = template.length > 120 ? template.substring(0, 120) + '...' : template;
                 html += `
                     <div class="modal-template-item" onclick="window.selectTemplate('${escapedTemplate}')">
-                        <div style="font-size:0.6rem;color:#008000;margin-bottom:2px;">#${idx + 1}</div>
+                        <div style="font-size:0.6rem;color:#008000;margin-bottom:2px;font-family:'Times New Roman','Courier New',sans-serif;">#${idx + 1}</div>
                         <div class="modal-template-text">${displayTemplate}</div>
                     </div>
                 `;
