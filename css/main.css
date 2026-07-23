@@ -3,7 +3,6 @@
    ================================================================ */
 
 @import url('base.css');
-@import url('splash.css');
 @import url('header.css');
 @import url('navigation.css');
 @import url('form.css');
@@ -14,14 +13,10 @@
 @import url('tab-absen.css');
 @import url('popup.css');
 @import url('responsive.css');
-
-/* ===== FILE-FILE BARU ===== */
-@import url('slider-volume.css');
 @import url('announcement.css');
 @import url('action-buttons.css');
 @import url('thankyou-popup.css');
 @import url('ai-template.css');
 @import url('preview-fixes.css');
-@import url('form-3d.css');
 
 /* ===== End of main.css ===== */
